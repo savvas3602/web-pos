@@ -1,0 +1,596 @@
+2025-11-25 22:00:40 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:00:40 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:00:41 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 12928 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:00:41 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:00:41 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:00:42 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:00:42 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:00:43 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:00:43 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:00:44 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:00:44 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:00:44 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:00:44 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:00:44 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:00:44 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:00:45 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:00:46 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:00:46 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:00:46 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:00:47 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:00:48 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:00:48 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 7.791 seconds (process running for 10.396)
+2025-11-25 22:00:49 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:00:49 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:00:49 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2025-11-25 22:00:50 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:00:50 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:00:50 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:01:05 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:01:06 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:01:06 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 24332 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:01:06 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:01:06 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:01:07 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:01:07 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:01:08 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:01:08 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:01:09 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:01:09 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:01:09 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:01:09 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:01:09 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:01:09 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:01:09 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:01:10 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:01:10 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:01:11 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:01:11 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:01:12 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:01:12 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 6.224 seconds (process running for 8.504)
+2025-11-25 22:01:13 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:01:13 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:01:13 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2025-11-25 22:01:13 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:01:13 WARN  [main] c.s.a.c.ControllerLoggingAspect - controller.exception name=ProductController.saveProduct(..) exType=ResourceNotFoundException message=ProductType not found with id: 1
+2025-11-25 22:01:13 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:01:13 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:01:13 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:05:37 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:05:38 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:05:38 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 10604 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:05:38 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:05:38 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:05:39 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:05:39 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:05:40 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:05:40 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:05:41 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:05:41 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:05:41 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:05:41 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:05:41 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:05:41 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:05:42 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:05:43 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:05:43 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:05:43 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:05:43 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:05:44 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:05:44 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 6.476 seconds (process running for 9.088)
+2025-11-25 22:05:45 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:05:45 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:05:45 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:05:45 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:05:46 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:05:46 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:05:46 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:05:46 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:05:46 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-11-25 22:05:46 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:05:46 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:05:46 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:11:06 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:11:06 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:11:07 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 14524 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:11:07 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:11:07 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:11:08 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:11:08 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:11:09 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:11:09 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:11:09 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:11:09 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:11:10 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:11:10 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:11:10 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:11:10 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:11:10 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:11:11 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:11:11 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:11:11 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:11:12 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:11:13 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:11:13 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 6.319 seconds (process running for 8.123)
+2025-11-25 22:11:14 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:11:14 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:11:14 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:11:14 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:11:14 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:11:15 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:11:15 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:11:15 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:11:15 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:11:15 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:11:15 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:11:15 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:11:15 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:11:15 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:11:15 WARN  [main] c.s.a.c.ControllerLoggingAspect - controller.exception name=ProductController.deleteProduct(..) exType=ResourceNotFoundException message=Product not found with id: 1
+2025-11-25 22:11:15 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:11:15 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:11:15 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:12:08 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:12:08 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:13:51 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:13:51 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:13:52 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 22968 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:13:52 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:13:52 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:13:53 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:13:53 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:13:54 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:13:54 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:13:55 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:13:55 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:13:55 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:13:55 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:13:56 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:13:56 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:13:56 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:13:57 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:13:57 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:13:57 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:13:58 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:13:59 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:13:59 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 7.326 seconds (process running for 9.169)
+2025-11-25 22:14:00 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:14:00 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:14:00 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:14:22 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:14:23 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:14:23 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 25944 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:14:23 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:14:23 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:14:24 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:14:24 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 81 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:14:26 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:14:26 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:14:27 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:14:27 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:14:27 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:14:27 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:14:27 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:14:27 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:14:27 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:14:28 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:14:28 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:14:28 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:14:29 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:14:30 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:14:31 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 7.831 seconds (process running for 9.703)
+2025-11-25 22:14:31 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:14:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:14:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:14:32 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:14:32 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:14:32 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:14:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:14:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2025-11-25 22:14:32 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:14:32 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:14:32 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:14:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:14:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:14:32 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:14:33 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-11-25 22:14:33 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:14:33 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:14:33 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:15:27 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:15:27 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:15:27 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 3216 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:15:27 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:15:27 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:15:28 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:15:28 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 46 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:15:29 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:15:29 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:15:29 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:15:30 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:15:30 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:15:30 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:15:30 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:15:30 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:15:30 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:15:31 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:15:31 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:15:31 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:15:32 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:15:32 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:15:33 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 5.6 seconds (process running for 7.667)
+2025-11-25 22:15:33 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:15:33 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:15:33 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2025-11-25 22:15:34 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:15:34 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:15:34 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:15:34 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:15:34 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:15:34 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:15:34 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:15:34 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:15:34 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:15:34 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:15:34 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:15:34 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-11-25 22:15:34 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:15:34 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:15:34 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:16:22 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:16:22 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:16:23 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 24744 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:16:23 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:16:23 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:16:23 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:16:24 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:16:24 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:16:24 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:16:25 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:16:25 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:16:25 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:16:25 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:16:25 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:16:25 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:16:26 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:16:27 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:16:27 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:16:27 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:16:27 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:16:28 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:16:28 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 5.993 seconds (process running for 7.853)
+2025-11-25 22:16:29 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:16:29 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:16:29 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2025-11-25 22:16:29 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:16:29 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:16:29 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:16:29 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:16:29 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:18:54 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:18:54 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:18:55 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 18980 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:18:55 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:18:55 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:18:56 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:18:56 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:18:57 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:18:57 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:18:57 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:18:57 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:18:58 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:18:58 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:18:58 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:18:58 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:18:58 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:18:59 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:18:59 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:18:59 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:18:59 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:19:00 INFO  [main] o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2025-11-25 22:19:00 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 5.754 seconds (process running for 8.013)
+2025-11-25 22:19:01 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:19:01 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:19:01 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:19:01 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:19:01 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:19:01 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:19:01 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:19:01 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:19:01 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:19:01 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:19:01 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:19:01 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:19:01 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:19:01 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:19:02 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-11-25 22:19:02 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:19:02 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:19:02 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:30:12 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:30:12 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:30:13 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 27172 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:30:13 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:30:13 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:30:14 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:30:14 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:30:14 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:30:14 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:30:15 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:30:15 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:30:15 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:30:15 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:30:15 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:30:15 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:30:16 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:30:16 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:30:17 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:30:17 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:30:17 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:18 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 5.672 seconds (process running for 6.961)
+2025-11-25 22:30:19 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:19 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:19 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:30:19 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:30:19 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:30:20 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2025-11-25 22:30:20 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:30:20 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:30:20 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:30:20 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:30:20 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-11-25 22:30:20 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:20 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:20 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:20 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:20 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:20 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:20 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:20 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:20 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:20 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:20 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:20 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:21 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:21 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:21 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:30:21 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:21 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:21 INFO  [main] o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-11-25 22:30:21 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:30:21 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:30:21 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.WebPosApplicationTests]: WebPosApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:30:21 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.WebPosApplicationTests
+2025-11-25 22:30:21 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:30:21 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:30:21 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-25 22:30:57 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:30:57 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-11-25 22:30:57 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 7704 (started by savvasad in C:\Users\savvasad\BriteBill\trainings\web-pos\web-pos)
+2025-11-25 22:30:57 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-11-25 22:30:57 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-11-25 22:30:58 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-25 22:30:58 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 2 JPA repository interfaces.
+2025-11-25 22:30:59 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-25 22:30:59 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-11-25 22:31:00 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-25 22:31:00 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-25 22:31:00 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-11-25 22:31:00 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-25 22:31:00 WARN  [main] org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-11-25 22:31:00 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-25 22:31:00 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-25 22:31:01 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-25 22:31:01 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:31:01 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-25 22:31:02 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-25 22:31:02 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 5.05 seconds (process running for 6.281)
+2025-11-25 22:31:03 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:03 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:03 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:31:03 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-11-25 22:31:03 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-11-25 22:31:03 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:03 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:03 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:31:03 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-11-25 22:31:04 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-11-25 22:31:04 INFO  [main] o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:31:04 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-11-25 22:31:04 DEBUG [main] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-11-25 22:31:04 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-11-25 22:31:04 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-11-25 22:31:05 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.WebPosApplicationTests]: WebPosApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-11-25 22:31:05 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.WebPosApplicationTests
+2025-11-25 22:31:05 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-11-25 22:31:05 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-25 22:31:05 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

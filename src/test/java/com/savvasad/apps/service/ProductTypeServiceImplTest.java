@@ -1,0 +1,75 @@
+package com.savvasad.apps.service;
+
+import com.savvasad.apps.dto.ProductTypeDTO;
+import com.savvasad.apps.entity.ProductTypeEntity;
+import com.savvasad.apps.repository.ProductTypeRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import java.util.List;
+import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+
+class ProductTypeServiceImplTest {
+    @Mock
+    private ProductTypeRepository productTypeRepository;
+
+    @InjectMocks
+    private ProductTypeServiceImpl productTypeService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testCreateAndGetProductType() {
+        ProductTypeEntity entity = new ProductTypeEntity(1L, "Type1", "Desc1");
+        when(productTypeRepository.save(any())).thenReturn(entity);
+        when(productTypeRepository.findById(1L)).thenReturn(Optional.of(entity));
+
+        ProductTypeDTO dto = new ProductTypeDTO(null, "Type1", "Desc1");
+        ProductTypeDTO created = productTypeService.save(dto);
+
+        assertThat(created.name()).isEqualTo("Type1");
+        assertThat(created.description()).isEqualTo("Desc1");
+
+        Optional<ProductTypeDTO> foundOpt = productTypeService.findById(1L);
+        assertThat(foundOpt).isPresent();
+
+        ProductTypeDTO found = foundOpt.get();
+        assertThat(found.name()).isEqualTo("Type1");
+    }
+
+    @Test
+    void testFindAll() {
+        when(productTypeRepository.findAll()).thenReturn(List.of(
+                new ProductTypeEntity(1L, "Type1", "Desc1"),
+                new ProductTypeEntity(2L, "Type2", "Desc2")
+        ));
+        List<ProductTypeDTO> all = productTypeService.findAll();
+        assertThat(all).hasSize(2);
+    }
+
+    @Test
+    void testUpdate() {
+        ProductTypeEntity entity = new ProductTypeEntity(1L, "Type1", "Desc1");
+        when(productTypeRepository.findById(1L)).thenReturn(Optional.of(entity));
+        when(productTypeRepository.save(any())).thenReturn(entity);
+
+        ProductTypeDTO dto = new ProductTypeDTO(1L, "Type1-upd", "Desc1-upd");
+        ProductTypeDTO updated = productTypeService.update(1L, dto);
+
+        assertThat(updated.name()).isEqualTo("Type1-upd");
+    }
+
+    @Test
+    void testDeleteById() {
+        productTypeService.deleteById(1L);
+        verify(productTypeRepository, times(1)).deleteById(1L);
+    }
+}
+

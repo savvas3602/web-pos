@@ -31,7 +31,7 @@ public record ProductDTO(
         @Min(value = 0, message = "Stock quantity cannot be negative")
         int stockQuantity,
 
-        @Max(value = 500, message = "Description cannot exceed 500 characters")
+        @Size(max = 500, message = "Description cannot exceed 500 characters")
         String description,
 
         Long productTypeId

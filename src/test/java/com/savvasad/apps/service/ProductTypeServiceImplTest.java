@@ -3,6 +3,7 @@ package com.savvasad.apps.service;
 import com.savvasad.apps.dto.ProductTypeDTO;
 import com.savvasad.apps.entity.ProductTypeEntity;
 import com.savvasad.apps.repository.ProductTypeRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,9 +21,11 @@ class ProductTypeServiceImplTest {
     @InjectMocks
     private ProductTypeServiceImpl productTypeService;
 
+    private AutoCloseable mocks;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        mocks = MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -68,8 +71,15 @@ class ProductTypeServiceImplTest {
 
     @Test
     void testDeleteById() {
+        when(productTypeRepository.existsById(1L)).thenReturn(true);
+
         productTypeService.deleteById(1L);
         verify(productTypeRepository, times(1)).deleteById(1L);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        if (mocks != null) mocks.close();
     }
 }
 

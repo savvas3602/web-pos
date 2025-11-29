@@ -6,7 +6,6 @@ import com.savvasad.apps.entity.ProductTypeEntity;
 import com.savvasad.apps.mapper.ProductMapper;
 import com.savvasad.apps.repository.ProductRepository;
 import com.savvasad.apps.repository.ProductTypeRepository;
-import com.savvasad.apps.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO update(Long id, ProductDTO productDTO) {
-        ProductEntity productEntity = productRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+        ProductEntity productEntity = productRepository.findOrThrow(id);
 
         productEntity.setName(productDTO.name());
         productEntity.setRetailPrice(productDTO.retailPrice());
@@ -56,8 +54,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setDescription(productDTO.description());
 
         if (nonNull(productDTO.productTypeId())) {
-            ProductTypeEntity productType = productTypeRepository.findById(productDTO.productTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("ProductType not found with id: " + productDTO.productTypeId()));
+            ProductTypeEntity productType = productTypeRepository.findOrThrow(productDTO.productTypeId());
             productEntity.setProductType(productType);
         } else {
             productEntity.setProductType(null);
@@ -68,9 +65,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product not found with id: " + id);
-        }
+        productRepository.findOrThrow(id);
         productRepository.deleteById(id);
     }
 }

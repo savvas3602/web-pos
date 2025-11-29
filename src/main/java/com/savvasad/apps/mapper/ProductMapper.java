@@ -3,7 +3,6 @@ package com.savvasad.apps.mapper;
 import com.savvasad.apps.dto.ProductDTO;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.entity.ProductTypeEntity;
-import com.savvasad.apps.exception.ResourceNotFoundException;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +28,7 @@ public class ProductMapper {
         );
 
         if (nonNull(dto.productTypeId())) {
-            ProductTypeEntity productType = productTypeRepository.findById(dto.productTypeId())
-                    .orElseThrow(() -> new ResourceNotFoundException("ProductType not found with id: {}" + dto.productTypeId()));
+            ProductTypeEntity productType = productTypeRepository.findOrThrow(dto.productTypeId());
             entity.setProductType(productType);
         }
         return entity;

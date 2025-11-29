@@ -3,6 +3,7 @@ package com.savvasad.apps.service;
 import com.savvasad.apps.dto.ProductDTO;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.entity.ProductTypeEntity;
+import com.savvasad.apps.mapper.ProductMapper;
 import com.savvasad.apps.repository.ProductRepository;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import com.savvasad.apps.exception.ResourceNotFoundException;
@@ -16,57 +17,31 @@ import static java.util.Objects.nonNull;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductTypeRepository productTypeRepository;
+    private final ProductMapper productMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductTypeRepository productTypeRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              ProductTypeRepository productTypeRepository,
+                              ProductMapper productMapper
+    ) {
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
-    }
-
-    private ProductDTO mapToDTO(ProductEntity productEntity) {
-        Long productTypeId = nonNull(productEntity.getProductType()) ? productEntity.getProductType().getId() : null;
-        return new ProductDTO(
-                productEntity.getId(),
-                productEntity.getName(),
-                productEntity.getRetailPrice(),
-                productEntity.getWholesalePrice(),
-                productEntity.getStockQuantity(),
-                productEntity.getDescription(),
-                productTypeId
-        );
-    }
-
-    private ProductEntity mapToEntity(ProductDTO dto) {
-        ProductEntity entity = new ProductEntity(
-            dto.id(),
-            dto.name(),
-            dto.retailPrice(),
-            dto.wholesalePrice(),
-            dto.stockQuantity(),
-            dto.description(),
-                null
-        );
-        if (nonNull(dto.productTypeId())) {
-            ProductTypeEntity productType = productTypeRepository.findById(dto.productTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("ProductType not found with id: " + dto.productTypeId()));
-            entity.setProductType(productType);
-        }
-        return entity;
+        this.productMapper = productMapper;
     }
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
-        ProductEntity productEntity = mapToEntity(productDTO);
-        return mapToDTO(productRepository.save(productEntity));
+        ProductEntity productEntity = productMapper.toEntity(productDTO);
+        return productMapper.toDto(productRepository.save(productEntity));
     }
 
     @Override
     public Optional<ProductDTO> findById(Long id) {
-        return productRepository.findById(id).map(this::mapToDTO);
+        return productRepository.findById(id).map(productMapper::toDto);
     }
 
     @Override
     public List<ProductDTO> findAll() {
-        return productRepository.findAll().stream().map(this::mapToDTO).toList();
+        return productRepository.findAll().stream().map(productMapper::toDto).toList();
     }
 
     @Override
@@ -88,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
             productEntity.setProductType(null);
         }
 
-        return mapToDTO(productRepository.save(productEntity));
+        return productMapper.toDto(productRepository.save(productEntity));
     }
 
     @Override

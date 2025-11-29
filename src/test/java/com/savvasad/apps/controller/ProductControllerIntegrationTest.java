@@ -7,36 +7,28 @@ import com.savvasad.apps.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.client.RestTestClient;
-import org.springframework.test.web.servlet.client.RestTestClient;
-import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureRestTestClient
 class ProductControllerIntegrationTest {
+
     @Autowired
-    private MockMvc mockMvc;
+    private RestTestClient restTestClient;
 
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private ProductMapper productMapper;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     private static final Supplier<ProductDTO> TEST_PRODUCT = () -> new ProductDTO(
             null,
@@ -54,71 +46,91 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    void testCreateProduct() throws Exception {
-        mockMvc.perform(post("/products")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(TEST_PRODUCT.get())))
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(header().exists("Location"))
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.name").value("Integration Test"));
+    void testCreateProduct() {
+        restTestClient.post().uri("/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(TEST_PRODUCT.get())
+                .exchange()
+                .expectStatus().isCreated()
+                .expectHeader().exists("Location")
+                .expectBody(ProductDTO.class)
+                .value(productDTO -> {
+                    assertThat(productDTO).isNotNull();
+                    assertThat(productDTO.id()).isNotNull();
+                    assertThat(productDTO.name()).isEqualTo("Integration Test");
+                });
     }
 
     @Test
-    void testGetProduct() throws Exception {
-        ProductEntity saved = productRepository.save(productMapper.dtoToEntity(TEST_PRODUCT.get()));
-        mockMvc.perform(get("/products/" + saved.getId()))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(saved.getId()))
-                .andExpect(jsonPath("$.name").value("Integration Test"));
+    void testGetProduct() {
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
+        restTestClient.get().uri("/products/{id}", saved.getId())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(ProductDTO.class)
+                .value(productDTO -> {
+                    assertThat(productDTO).isNotNull();
+                    assertThat(productDTO.id()).isEqualTo(saved.getId());
+                    assertThat(productDTO.name()).isEqualTo("Integration Test");
+                });
     }
 
     @Test
-    void testDeleteProduct() throws Exception {
-        ProductEntity saved = productRepository.save(productMapper.dtoToEntity(TEST_PRODUCT.get()));
-        mockMvc.perform(delete("/products/" + saved.getId()))
-                .andDo(print())
-                .andExpect(status().isNoContent());
+    void testDeleteProduct() {
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
+        restTestClient.delete().uri("/products/{id}", saved.getId())
+                .exchange()
+                .expectStatus().isNoContent();
         assertThat(productRepository.findById(saved.getId())).isEmpty();
     }
 
     @Test
-    void testUpdateProduct() throws Exception {
-        ProductEntity saved = productRepository.save(productMapper.dtoToEntity(TEST_PRODUCT.get()));
-        ProductDTO update = new ProductDTO(null, "Updated Name", new BigDecimal("88.88"), new BigDecimal("77.77"), 60, "Updated Desc", null);
-        mockMvc.perform(put("/products/" + saved.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(update)))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Updated Name"))
-                .andExpect(jsonPath("$.retailPrice").value(88.88))
-                .andExpect(jsonPath("$.description").value("Updated Desc"));
+    void testUpdateProduct() {
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
+        ProductDTO updateTo = new ProductDTO(null,
+                "Updated Name",
+                new BigDecimal("88.88"),
+                new BigDecimal("77.77"),
+                60,
+                "Updated Desc",
+                null
+        );
+
+        restTestClient.put().uri("/products/{id}", saved.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(updateTo)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(ProductDTO.class)
+                .value(productDTO -> {
+                    assertThat(productDTO).isNotNull();
+                    assertThat(productDTO.name()).isEqualTo("Updated Name");
+                    assertThat(productDTO.retailPrice()).isEqualTo(BigDecimal.valueOf(88.88));
+                    assertThat(productDTO.description()).isEqualTo("Updated Desc");
+                });
     }
 
     @Test
-    void testGetProduct_NotFound() throws Exception {
-        mockMvc.perform(get("/products/99999"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
+    void testGetProduct_NotFound() {
+        restTestClient.get().uri("/products/{id}", 99999L)
+                .exchange()
+                .expectStatus().isNotFound();
     }
 
     @Test
-    void testDeleteProduct_NotFound() throws Exception {
-        mockMvc.perform(delete("/products/99999"))
-                .andDo(print())
-                .andExpect(status().isNotFound());
+    void testDeleteProduct_NotFound() {
+        restTestClient.delete().uri("/products/{id}", 99999L)
+                .exchange()
+                .expectStatus().isNotFound();
     }
 
     @Test
-    void testCreateProduct_InvalidInput() throws Exception {
+    void testCreateProduct_InvalidInput() {
         ProductDTO invalid = new ProductDTO(null, "", null, null, -1, "", null);
-        mockMvc.perform(post("/products")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalid)))
-                .andDo(print())
-                .andExpect(status().isBadRequest());
+        restTestClient.post().uri("/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(invalid)
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 }

@@ -7,6 +7,8 @@ import com.savvasad.apps.exception.ResourceNotFoundException;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import org.springframework.stereotype.Component;
 
+import static java.util.Objects.nonNull;
+
 @Component
 public class ProductMapper {
     private final ProductTypeRepository productTypeRepository;
@@ -15,23 +17,26 @@ public class ProductMapper {
         this.productTypeRepository = productTypeRepository;
     }
 
-    public ProductEntity dtoToEntity(ProductDTO productDTO) {
-
-        ProductTypeEntity productType = productTypeRepository.findById(productDTO.productTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("ProductType id not found: " + productDTO.productTypeId()));
-
-        return new ProductEntity(
-                productDTO.id(),
-                productDTO.name(),
-                productDTO.retailPrice(),
-                productDTO.wholesalePrice(),
-                productDTO.stockQuantity(),
-                productDTO.description(),
-                productType
+    public ProductEntity toEntity(ProductDTO dto) {
+        ProductEntity entity = new ProductEntity(
+                dto.id(),
+                dto.name(),
+                dto.retailPrice(),
+                dto.wholesalePrice(),
+                dto.stockQuantity(),
+                dto.description(),
+                null
         );
+
+        if (nonNull(dto.productTypeId())) {
+            ProductTypeEntity productType = productTypeRepository.findById(dto.productTypeId())
+                    .orElseThrow(() -> new ResourceNotFoundException("ProductType not found with id: {}" + dto.productTypeId()));
+            entity.setProductType(productType);
+        }
+        return entity;
     }
 
-    public static ProductDTO entityToDTO(ProductEntity productEntity) {
+    public ProductDTO toDto(ProductEntity productEntity) {
         return new ProductDTO(
                 productEntity.getId(),
                 productEntity.getName(),

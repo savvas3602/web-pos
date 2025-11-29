@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.0.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.savvasad</groupId>
     <artifactId>web-pos</artifactId>
@@ -22,10 +22,9 @@
         </developer>
     </developers>
     <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
+        <connection>scm:git:https://github.com/savvas3602/web-pos.git</connection>
+        <developerConnection>scm:git:https://github.com/savvas3602/web-pos.git</developerConnection>
+        <url>https://github.com/savvas3602/web-pos</url>
     </scm>
     <properties>
         <java.version>25</java.version>
@@ -47,13 +46,12 @@
             <scope>test</scope>
         </dependency>
 
-
+        <!-- RestTestClient auto-config -->
         <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webmvc-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Integration Test -->
         <dependency>
@@ -82,7 +80,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>8.0.1.Final</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -133,7 +130,7 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
+
 </project>

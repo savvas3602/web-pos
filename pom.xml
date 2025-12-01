@@ -121,7 +121,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>pos_package_${version}</finalName>
+                            <finalName>pos_package_${project.version}</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>src/assembly/package.xml</descriptor>

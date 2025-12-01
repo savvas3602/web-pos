@@ -1,0 +1,125 @@
+2025-12-01 18:07:17 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.controller.ProductControllerIntegrationTest]: ProductControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-01 18:07:18 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.controller.ProductControllerIntegrationTest
+2025-12-01 18:07:18 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Starting ProductControllerIntegrationTest using Java 25.0.1 with PID 5672 (started by 35799 in C:\GitHub\web-pos)
+2025-12-01 18:07:18 DEBUG [main] c.s.a.c.ProductControllerIntegrationTest - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-12-01 18:07:18 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2025-12-01 18:07:20 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-01 18:07:20 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 91 ms. Found 2 JPA repository interfaces.
+2025-12-01 18:07:21 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 0 (http)
+2025-12-01 18:07:21 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-auto-1"]
+2025-12-01 18:07:21 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-01 18:07:21 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-01 18:07:21 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2812 ms
+2025-12-01 18:07:22 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-01 18:07:22 INFO  [main] org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-01 18:07:23 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-01 18:07:23 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-01 18:07:23 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:test_db user=SA
+2025-12-01 18:07:23 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-01 18:07:23 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:test_db]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TEST_DB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-01 18:07:24 INFO  [main] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-01 18:07:25 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-01 18:07:25 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-01 18:07:26 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-01 18:07:26 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-01 18:07:27 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-auto-1"]
+2025-12-01 18:07:28 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 51536 (http) with context path '/'
+2025-12-01 18:07:28 INFO  [main] c.s.a.c.ProductControllerIntegrationTest - Started ProductControllerIntegrationTest in 9.673 seconds (process running for 12.267)
+2025-12-01 18:07:29 INFO  [http-nio-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-01 18:07:29 INFO  [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-01 18:07:29 INFO  [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-1] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.saveProduct(..) argsCount=1
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-1] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.saveProduct(..) returnType=ResponseEntity
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-2] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-2] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-3] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.updateProduct(..) argsCount=2
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-3] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.updateProduct(..) returnType=ResponseEntity
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-4] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-12-01 18:07:30 WARN  [http-nio-auto-1-exec-4] c.s.a.c.ControllerLoggingAspect - controller.exception name=ProductController.deleteProduct(..) exType=ResourceNotFoundException message=Product not found: 99999
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-6] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.getProductById(..) argsCount=1
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-6] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.getProductById(..) returnType=ResponseEntity
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-7] c.s.a.c.ControllerLoggingAspect - controller.entry name=ProductController.deleteProduct(..) argsCount=1
+2025-12-01 18:07:30 DEBUG [http-nio-auto-1-exec-7] c.s.a.c.ControllerLoggingAspect - controller.exit name=ProductController.deleteProduct(..) returnType=ResponseEntity
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:31 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:31 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:32 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:32 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:32 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:32 INFO  [main] o.s.mock.web.MockServletContext - Initializing Spring TestDispatcherServlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2025-12-01 18:07:32 INFO  [main] o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2025-12-01 18:07:32 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.savvasad.apps.WebPosApplicationTests]: WebPosApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-12-01 18:07:32 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.savvasad.apps.WebPosApplication for test class com.savvasad.apps.WebPosApplicationTests
+2025-12-01 18:07:32 INFO  [main] c.s.apps.WebPosApplicationTests - Starting WebPosApplicationTests using Java 25.0.1 with PID 5672 (started by 35799 in C:\GitHub\web-pos)
+2025-12-01 18:07:32 DEBUG [main] c.s.apps.WebPosApplicationTests - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-12-01 18:07:32 INFO  [main] c.s.apps.WebPosApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2025-12-01 18:07:33 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-01 18:07:33 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 2 JPA repository interfaces.
+2025-12-01 18:07:33 INFO  [main] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-01 18:07:33 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-01 18:07:33 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-01 18:07:33 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:test_db user=SA
+2025-12-01 18:07:33 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-01 18:07:33 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:test_db]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TEST_DB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-01 18:07:33 INFO  [main] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-01 18:07:33 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-01 18:07:34 WARN  [main] o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-01 18:07:34 INFO  [main] c.s.apps.WebPosApplicationTests - Started WebPosApplicationTests in 2.178 seconds (process running for 19.086)
+2025-12-01 18:07:34 INFO  [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-01 18:07:34 INFO  [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-01 18:07:34 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-01 18:07:34 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-01 18:07:34 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-01 18:07:35 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-01 18:07:35 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-01 18:07:35 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

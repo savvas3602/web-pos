@@ -4,6 +4,8 @@ CREATE TABLE product_types (
     description VARCHAR(500)
 );
 
+CREATE INDEX idx_product_types_name ON product_types(name);
+
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -16,3 +18,21 @@ CREATE TABLE products (
 
 CREATE INDEX idx_products_name ON products(name);
 CREATE INDEX idx_products_product_type_id ON products(product_type_id);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    order_value DOUBLE PRECISION NOT NULL DEFAULT 0
+);
+
+CREATE TABLE orders_products (
+    order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    quantity INTEGER NOT NULL,
+
+    CONSTRAINT pk_orders_products PRIMARY KEY (order_id, product_id)
+);
+
+CREATE INDEX idx_orders_products_order_id ON orders_products(order_id);
+CREATE INDEX idx_orders_products_product_id ON orders_products(product_id);

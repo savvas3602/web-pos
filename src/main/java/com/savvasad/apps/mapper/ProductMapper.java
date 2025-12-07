@@ -3,35 +3,20 @@ package com.savvasad.apps.mapper;
 import com.savvasad.apps.dto.ProductDTO;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.entity.ProductTypeEntity;
-import com.savvasad.apps.repository.ProductTypeRepository;
 import org.springframework.stereotype.Component;
-
-import static java.util.Objects.nonNull;
 
 @Component
 public class ProductMapper {
-    private final ProductTypeRepository productTypeRepository;
-
-    public ProductMapper(ProductTypeRepository productTypeRepository) {
-        this.productTypeRepository = productTypeRepository;
-    }
-
-    public ProductEntity toEntity(ProductDTO dto) {
-        ProductEntity entity = new ProductEntity(
+    public ProductEntity toEntity(ProductDTO dto, ProductTypeEntity productType) {
+        return new ProductEntity(
                 dto.id(),
                 dto.name(),
                 dto.retailPrice(),
                 dto.wholesalePrice(),
                 dto.stockQuantity(),
                 dto.description(),
-                null
+                productType
         );
-
-        if (nonNull(dto.productTypeId())) {
-            ProductTypeEntity productType = productTypeRepository.findOrThrow(dto.productTypeId());
-            entity.setProductType(productType);
-        }
-        return entity;
     }
 
     public ProductDTO toDto(ProductEntity productEntity) {

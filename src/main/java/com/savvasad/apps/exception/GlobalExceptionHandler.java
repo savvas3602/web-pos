@@ -1,6 +1,7 @@
 package com.savvasad.apps.exception;
 
 import org.jspecify.annotations.NonNull;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -43,6 +44,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<@NonNull Object> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("Data Integrity Violation", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<@NonNull Object> handleOtherExceptions(Exception ex) {
         Map<String, String> body = new HashMap<>();
@@ -51,4 +59,3 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
-

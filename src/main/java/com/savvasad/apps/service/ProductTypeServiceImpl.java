@@ -2,8 +2,7 @@ package com.savvasad.apps.service;
 
 import com.savvasad.apps.dto.ProductTypeDTO;
 import com.savvasad.apps.entity.ProductTypeEntity;
-import com.savvasad.apps.exception.DuplicateResourceException;
-import com.savvasad.apps.exception.ResourceNotFoundException;
+import com.savvasad.apps.helper.EntityHelper;
 import com.savvasad.apps.mapper.ProductTypeMapper;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import org.springframework.stereotype.Service;
@@ -15,18 +14,14 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     private final ProductTypeRepository productTypeRepository;
     private final ProductTypeMapper productTypeMapper;
 
-    public ProductTypeServiceImpl(ProductTypeRepository productTypeRepository,
-                                  ProductTypeMapper productTypeMapper
-    ) {
+    public ProductTypeServiceImpl(ProductTypeRepository productTypeRepository, ProductTypeMapper productTypeMapper) {
         this.productTypeRepository = productTypeRepository;
         this.productTypeMapper = productTypeMapper;
     }
 
     @Override
     public ProductTypeDTO save(ProductTypeDTO dto) {
-        if (productTypeRepository.existsByName(dto.name())) {
-            throw new DuplicateResourceException("ProductType with name '" + dto.name() + "' already exists");
-        }
+        validateNameNotExists(dto.name());
         ProductTypeEntity entity = productTypeMapper.toEntity(dto);
         return productTypeMapper.toDto(productTypeRepository.save(entity));
     }
@@ -44,11 +39,10 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     public ProductTypeDTO update(Long id, ProductTypeDTO dto) {
         ProductTypeEntity entity = productTypeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ProductType not found with id: " + id));
+                .orElseThrow(() -> EntityHelper.throwResourceNotFoundException("Product Type", id));
 
-        // Check if name is being changed to a duplicate (but allow keeping the same name)
-        if (!entity.getName().equals(dto.name()) && productTypeRepository.existsByName(dto.name())) {
-            throw new DuplicateResourceException("ProductType with name '" + dto.name() + "' already exists");
+        if (!entity.getName().equals(dto.name())) {
+            validateNameNotExists(dto.name());
         }
 
         entity.setName(dto.name());
@@ -59,8 +53,14 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     public void deleteById(Long id) {
         if (!productTypeRepository.existsById(id)) {
-            throw new ResourceNotFoundException("ProductType not found with id: " + id);
+            EntityHelper.throwResourceNotFoundException("Product Type", id);
         }
         productTypeRepository.deleteById(id);
+    }
+
+    private void validateNameNotExists(String name) {
+        if (productTypeRepository.existsByName(name)) {
+            EntityHelper.throwDuplicateResourceException("Product Type", "name", name);
+        }
     }
 }

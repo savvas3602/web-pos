@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>25</java.version>
+        <start-class>com.savvasad.apps.WebPosApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -58,7 +59,13 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
+        
+        <!-- H2 Database console -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-h2console</artifactId>
+        </dependency>
+    
         <!-- Live data -->
         <dependency>
             <groupId>org.postgresql</groupId>

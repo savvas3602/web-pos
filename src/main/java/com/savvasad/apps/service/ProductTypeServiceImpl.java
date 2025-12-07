@@ -4,6 +4,7 @@ import com.savvasad.apps.dto.ProductTypeDTO;
 import com.savvasad.apps.entity.ProductTypeEntity;
 import com.savvasad.apps.exception.DuplicateResourceException;
 import com.savvasad.apps.exception.ResourceNotFoundException;
+import com.savvasad.apps.mapper.ProductTypeMapper;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,17 +13,13 @@ import java.util.Optional;
 @Service
 public class ProductTypeServiceImpl implements ProductTypeService {
     private final ProductTypeRepository productTypeRepository;
+    private final ProductTypeMapper productTypeMapper;
 
-    public ProductTypeServiceImpl(ProductTypeRepository productTypeRepository) {
+    public ProductTypeServiceImpl(ProductTypeRepository productTypeRepository,
+                                  ProductTypeMapper productTypeMapper
+    ) {
         this.productTypeRepository = productTypeRepository;
-    }
-
-    private ProductTypeDTO toDTO(ProductTypeEntity entity) {
-        return new ProductTypeDTO(entity.getId(), entity.getName(), entity.getDescription());
-    }
-
-    private ProductTypeEntity toEntity(ProductTypeDTO dto) {
-        return new ProductTypeEntity(dto.id(), dto.name(), dto.description());
+        this.productTypeMapper = productTypeMapper;
     }
 
     @Override
@@ -30,18 +27,18 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         if (productTypeRepository.existsByName(dto.name())) {
             throw new DuplicateResourceException("ProductType with name '" + dto.name() + "' already exists");
         }
-        ProductTypeEntity entity = toEntity(dto);
-        return toDTO(productTypeRepository.save(entity));
+        ProductTypeEntity entity = productTypeMapper.toEntity(dto);
+        return productTypeMapper.toDto(productTypeRepository.save(entity));
     }
 
     @Override
     public Optional<ProductTypeDTO> findById(Long id) {
-        return productTypeRepository.findById(id).map(this::toDTO);
+        return productTypeRepository.findById(id).map(productTypeMapper::toDto);
     }
 
     @Override
     public List<ProductTypeDTO> findAll() {
-        return productTypeRepository.findAll().stream().map(this::toDTO).toList();
+        return productTypeRepository.findAll().stream().map(productTypeMapper::toDto).toList();
     }
 
     @Override
@@ -56,7 +53,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
         entity.setName(dto.name());
         entity.setDescription(dto.description());
-        return toDTO(productTypeRepository.save(entity));
+        return productTypeMapper.toDto(productTypeRepository.save(entity));
     }
 
     @Override

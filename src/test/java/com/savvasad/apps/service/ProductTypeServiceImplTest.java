@@ -2,6 +2,7 @@ package com.savvasad.apps.service;
 
 import com.savvasad.apps.dto.ProductTypeDTO;
 import com.savvasad.apps.entity.ProductTypeEntity;
+import com.savvasad.apps.mapper.ProductTypeMapper;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,9 @@ class ProductTypeServiceImplTest {
     @Mock
     private ProductTypeRepository productTypeRepository;
 
+    @Mock
+    private ProductTypeMapper productTypeMapper;
+
     @InjectMocks
     private ProductTypeServiceImpl productTypeService;
 
@@ -33,6 +37,8 @@ class ProductTypeServiceImplTest {
         ProductTypeEntity entity = new ProductTypeEntity(1L, "Type1", "Desc1");
         when(productTypeRepository.save(any())).thenReturn(entity);
         when(productTypeRepository.findById(1L)).thenReturn(Optional.of(entity));
+        when(productTypeMapper.toEntity(any())).thenReturn(entity);
+        when(productTypeMapper.toDto(any())).thenReturn(new ProductTypeDTO(1L, "Type1", "Desc1"));
 
         ProductTypeDTO dto = new ProductTypeDTO(null, "Type1", "Desc1");
         ProductTypeDTO created = productTypeService.save(dto);
@@ -62,6 +68,7 @@ class ProductTypeServiceImplTest {
         ProductTypeEntity entity = new ProductTypeEntity(1L, "Type1", "Desc1");
         when(productTypeRepository.findById(1L)).thenReturn(Optional.of(entity));
         when(productTypeRepository.save(any())).thenReturn(entity);
+        when(productTypeMapper.toDto(any())).thenReturn(new ProductTypeDTO(1L, "Type1-upd", "Desc1-upd"));
 
         ProductTypeDTO dto = new ProductTypeDTO(1L, "Type1-upd", "Desc1-upd");
         ProductTypeDTO updated = productTypeService.update(1L, dto);

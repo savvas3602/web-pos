@@ -41,7 +41,7 @@ public class ProductController {
      * @return HTTP 200 OK with ProductDTO if found <br/> HTTP 404 If not found
      */
     @GetMapping("/{id}")
-    public ResponseEntity<@NonNull ProductDTO> getProductById(@PathVariable Long id) {
+    public ResponseEntity<@NonNull ProductDTO> getById(@PathVariable Long id) {
         return productService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -54,7 +54,7 @@ public class ProductController {
      * @return HTTP 200 OK with the updated ProductDTO <br/> HTTP 404 If ProductType is not found
      */
     @PutMapping("/{id}")
-    public ResponseEntity<@NonNull ProductDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<@NonNull ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.update(id, productDTO));
     }
 
@@ -64,7 +64,7 @@ public class ProductController {
      * @return HTTP 204 No Content (body is empty) <br/> HTTP 404 If not found
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<@NonNull Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<@NonNull Void> delete(@PathVariable Long id) {
         productService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -76,7 +76,7 @@ public class ProductController {
      * <br/> HTTP 404 If ProductType is not found
      */
     @PostMapping
-    public ResponseEntity<@NonNull ProductDTO> saveProduct(@Valid @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<@NonNull ProductDTO> save(@Valid @RequestBody ProductDTO productDTO) {
         ProductDTO savedProduct = productService.save(productDTO);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -92,7 +92,7 @@ public class ProductController {
      * @return HTTP 200 OK with a list of ProductDTOs
      */
     @GetMapping
-    public ResponseEntity<@NonNull List<ProductDTO>> getAllProducts() {
+    public ResponseEntity<@NonNull List<ProductDTO>> getAll() {
         return ResponseEntity.ok(productService.findAll());
     }
 }

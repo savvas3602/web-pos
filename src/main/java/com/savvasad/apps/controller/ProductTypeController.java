@@ -5,18 +5,28 @@ import com.savvasad.apps.service.ProductTypeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.jspecify.annotations.NonNull;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import java.net.URI;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * REST controller for managing Product Types.
+ * <p>
+ * Provides endpoints for CRUD operations on product types.
+ * <ul>
+ *   <li><b>POST /product-types</b>: Create a new product type. Returns 201 Created and the created ProductTypeDTO in the response body.</li>
+ *   <li><b>GET /product-types/{id}</b>: Retrieve a product type by its ID. Returns 200 OK and the ProductTypeDTO if found, or 404 Not Found if not.</li>
+ *   <li><b>GET /product-types</b>: Retrieve all product types. Returns 200 OK and a list of ProductTypeDTOs.</li>
+ *   <li><b>PUT /product-types/{id}</b>: Update a product type by its ID. Returns 200 OK and the updated ProductTypeDTO.</li>
+ *   <li><b>DELETE /product-types/{id}</b>: Delete a product type by its ID. Returns 204 No Content.</li>
+ * </ul>
+ * <p>
+ * All request bodies are validated using Jakarta Bean Validation annotations.
  */
 @RestController
 @RequestMapping("/product-types")
 public class ProductTypeController {
-
-    private static final Logger logger = LoggerFactory.getLogger(ProductTypeController.class);
     private final ProductTypeService productTypeService;
 
     public ProductTypeController(ProductTypeService productTypeService) {
@@ -24,82 +34,62 @@ public class ProductTypeController {
     }
 
     /**
-     * Create a new Product Type.
-     * @param dto the product type data
-     * @return the created ProductTypeDTO
+     * Create a new product type.
+     * @param dto the product type data (validated)
+     * @return HTTP 201 Created with the created ProductTypeDTO in the body and Location header
      */
     @PostMapping
-    public ResponseEntity<ProductTypeDTO> create(@Valid @RequestBody ProductTypeDTO dto) {
-        logger.info("Received request to create ProductType: name={}, description={}", dto.name(), dto.description());
-
+    public ResponseEntity<@NonNull ProductTypeDTO> create(@Valid @RequestBody ProductTypeDTO dto) {
         ProductTypeDTO created = productTypeService.save(dto);
-        logger.info("Successfully created ProductType with id={}", created.id());
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(created.id())
+                .toUri();
 
-        return ResponseEntity.ok(created);
+        return ResponseEntity.created(location).body(created);
     }
 
     /**
-     * Get a Product Type by its ID.
+     * Retrieve a product type by its ID.
      * @param id the product type ID
-     * @return the ProductTypeDTO if found, 404 otherwise
+     * @return HTTP 200 OK with ProductTypeDTO if found <br/> HTTP 404 If not found
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ProductTypeDTO> getById(@PathVariable Long id) {
-        logger.info("Received request to get ProductType by id={}", id);
-
+    public ResponseEntity<@NonNull ProductTypeDTO> getById(@PathVariable Long id) {
         return productTypeService.findById(id)
-                .map(dto -> {
-                    logger.info("Found ProductType with id={}", id);
-                    return ResponseEntity.ok(dto);
-                })
-                .orElseGet(() -> {
-                    logger.warn("ProductType with id={} not found", id);
-                    return ResponseEntity.notFound().build();
-                });
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     /**
-     * Get all Product Types.
-     * @return list of ProductTypeDTOs
+     * Retrieve all product types.
+     * @return HTTP 200 OK with a list of ProductTypeDTOs
      */
     @GetMapping
-    public List<ProductTypeDTO> getAll() {
-        logger.info("Received request to get all ProductTypes");
-
-        List<ProductTypeDTO> list = productTypeService.findAll();
-
-        logger.info("Returning {} ProductTypes", list.size());
-        return list;
+    public ResponseEntity<@NonNull List<ProductTypeDTO>> getAll() {
+        return ResponseEntity.ok(productTypeService.findAll());
     }
 
     /**
-     * Update a Product Type by its ID.
+     * Update a product type by its ID.
      * @param id the product type ID
-     * @param dto the updated product type data
-     * @return the updated ProductTypeDTO
+     * @param dto the updated product type data (validated)
+     * @return HTTP 200 OK with the updated ProductTypeDTO
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ProductTypeDTO> update(@PathVariable Long id, @Valid @RequestBody ProductTypeDTO dto) {
-        logger.info("Received request to update ProductType id={}", id);
-
-        ProductTypeDTO updated = productTypeService.update(id, dto);
-        logger.info("Successfully updated ProductType with id={}", id);
-
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<@NonNull ProductTypeDTO> update(@PathVariable Long id, @Valid @RequestBody ProductTypeDTO dto) {
+        return ResponseEntity.ok(productTypeService.update(id, dto));
     }
 
     /**
-     * Delete a Product Type by its ID.
+     * Delete a product type by its ID.
      * @param id the product type ID
-     * @return 204 No Content
+     * @return HTTP 204 No Content (body is empty)
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        logger.info("Received request to delete ProductType id={}", id);
-
+    public ResponseEntity<@NonNull Void> delete(@PathVariable Long id) {
         productTypeService.deleteById(id);
-        logger.info("Successfully deleted ProductType with id={}", id);
-
         return ResponseEntity.noContent().build();
     }
 }

@@ -62,7 +62,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void testGetProductById() throws Exception {
+    void testGetById() throws Exception {
         when(productService.findById(1L))
                 .thenReturn(Optional.of(new ProductDTO(
                         1L, "Test", BigDecimal.TEN, BigDecimal.TWO, 100, "desc", 1L
@@ -77,7 +77,7 @@ class ProductControllerTest {
 
     // HTTP 404 Not Found
     @Test
-    void testGetProductById_NotFound() throws Exception {
+    void testGetById_NotFound() throws Exception {
         when(productService.findById(99L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/products/99"))
@@ -125,7 +125,7 @@ class ProductControllerTest {
 
     // HTTP 200 OK
     @Test
-    void testUpdateProduct() throws Exception {
+    void testUpdate() throws Exception {
         when(productService.update(eq(1L), any(ProductDTO.class)))
                 .thenReturn(new ProductDTO(
                         1L, "Updated", BigDecimal.TEN, BigDecimal.TEN, 60, "desc updated", 1L
@@ -146,7 +146,7 @@ class ProductControllerTest {
 
     // HTTP 404 Not Found
     @Test
-    void testUpdateProduct_NotFound() throws Exception {
+    void testUpdate_NotFound() throws Exception {
         when(productService.update(eq(99L), any(ProductDTO.class)))
                 .thenThrow(new ResourceNotFoundException("Product not found"));
 
@@ -159,7 +159,7 @@ class ProductControllerTest {
 
     // HTTP 409 Conflict
     @Test
-    void testUpdateProduct_Duplicate() throws Exception {
+    void testUpdate_Duplicate() throws Exception {
         when(productService.update(eq(1L), any(ProductDTO.class)))
                 .thenThrow(new DuplicateResourceException("Product with ID already exists"));
 
@@ -172,7 +172,7 @@ class ProductControllerTest {
 
     // HTTP 400 Bad Request
     @Test
-    void testUpdateProduct_InvalidInput() throws Exception {
+    void testUpdate_InvalidInput() throws Exception {
         mockMvc.perform(put("/products/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"\",\"retailPrice\":0.0,\"wholesalePrice\":-1.0,\"stockQuantity\":-10,\"description\":\"desc invalid\", \"product_type_id\":1}"))
@@ -182,7 +182,7 @@ class ProductControllerTest {
 
     // HTTP 204 No Content
     @Test
-    void testDeleteProduct() throws Exception {
+    void testDelete() throws Exception {
         doNothing().when(productService).deleteById(1L);
 
         mockMvc.perform(delete("/products/1"))
@@ -192,7 +192,7 @@ class ProductControllerTest {
 
     // HTTP 404 Not Found
     @Test
-    void deleteProduct_NotFound() throws Exception {
+    void delete_NotFound() throws Exception {
         doThrow(new ResourceNotFoundException("Product not found")).when(productService).deleteById(99L);
 
         mockMvc.perform(delete("/products/99"))

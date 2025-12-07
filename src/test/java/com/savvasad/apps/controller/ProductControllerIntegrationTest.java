@@ -76,7 +76,7 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    void testDeleteProduct() {
+    void testDelete() {
         ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
         restTestClient.delete().uri("/products/{id}", saved.getId())
                 .exchange()
@@ -85,7 +85,7 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    void testUpdateProduct() {
+    void testUpdate() {
         ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
         ProductDTO updateTo = new ProductDTO(null,
                 "Updated Name",
@@ -118,7 +118,7 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    void testDeleteProduct_NotFound() {
+    void testDelete_NotFound() {
         restTestClient.delete().uri("/products/{id}", 99999L)
                 .exchange()
                 .expectStatus().isNotFound();

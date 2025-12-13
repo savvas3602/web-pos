@@ -5,13 +5,10 @@ import jakarta.validation.constraints.NotNull;
 /**
  * OrderProduct Data Transfer Object (DTO) for transferring order product data between layers.
  * Validations are applied to ensure data integrity.
- * @param id
  * @param productId
  * @param quantity
  */
 public record OrderProductDto(
-        Long id,
-
         @NotNull(message = "Product ID cannot be null")
         Long productId,
 

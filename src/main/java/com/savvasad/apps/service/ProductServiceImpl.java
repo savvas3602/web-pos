@@ -3,6 +3,7 @@ package com.savvasad.apps.service;
 import com.savvasad.apps.dto.ProductDTO;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.entity.ProductTypeEntity;
+import com.savvasad.apps.exception.ResourceNotFoundException;
 import com.savvasad.apps.mapper.ProductMapper;
 import com.savvasad.apps.repository.ProductRepository;
 import com.savvasad.apps.repository.ProductTypeRepository;
@@ -29,7 +30,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
-        ProductEntity productEntity = productMapper.toEntity(productDTO);
+        ProductTypeEntity productType = null;
+        if (nonNull(productDTO.productTypeId())) {
+            productType = findProductTypeByIdOrThrow(productDTO.productTypeId());
+        }
+
+        ProductEntity productEntity = productMapper.toEntity(productDTO, productType);
         return productMapper.toDto(productRepository.save(productEntity));
     }
 
@@ -45,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO update(Long id, ProductDTO productDTO) {
-        ProductEntity productEntity = productRepository.findOrThrow(id);
+        ProductEntity productEntity = findByIdOrThrow(id);
 
         productEntity.setName(productDTO.name());
         productEntity.setRetailPrice(productDTO.retailPrice());
@@ -54,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setDescription(productDTO.description());
 
         if (nonNull(productDTO.productTypeId())) {
-            ProductTypeEntity productType = productTypeRepository.findOrThrow(productDTO.productTypeId());
+            ProductTypeEntity productType = findProductTypeByIdOrThrow(productDTO.productTypeId());
             productEntity.setProductType(productType);
         } else {
             productEntity.setProductType(null);
@@ -65,7 +71,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(Long id) {
-        productRepository.findOrThrow(id);
+        validateExists(id);
         productRepository.deleteById(id);
+    }
+
+    private void validateExists(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException(
+                    String.format("Product with id '%d' does not exist.", id)
+            );
+        }
+    }
+
+    private ProductEntity findByIdOrThrow(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("Product not found: %s", id)
+                ));
+    }
+
+    private ProductTypeEntity findProductTypeByIdOrThrow(Long id) {
+        return productTypeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("ProductType not found: %s", id)
+                ));
     }
 }

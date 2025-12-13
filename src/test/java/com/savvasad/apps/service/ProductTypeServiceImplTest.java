@@ -7,14 +7,18 @@ import com.savvasad.apps.repository.ProductTypeRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class ProductTypeServiceImplTest {
     @Mock
     private ProductTypeRepository productTypeRepository;
@@ -24,13 +28,6 @@ class ProductTypeServiceImplTest {
 
     @InjectMocks
     private ProductTypeServiceImpl productTypeService;
-
-    private AutoCloseable mocks;
-
-    @BeforeEach
-    void setUp() {
-        mocks = MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     void testCreateAndGetProductType() {
@@ -82,11 +79,6 @@ class ProductTypeServiceImplTest {
 
         productTypeService.deleteById(1L);
         verify(productTypeRepository, times(1)).deleteById(1L);
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
-        if (mocks != null) mocks.close();
     }
 }
 

@@ -5,6 +5,7 @@ import com.savvasad.apps.dto.OrderProductDto;
 import com.savvasad.apps.entity.OrderEntity;
 import com.savvasad.apps.entity.OrderProductEntity;
 import com.savvasad.apps.entity.ProductEntity;
+import com.savvasad.apps.exception.ResourceNotFoundException;
 import com.savvasad.apps.repository.OrderRepository;
 import com.savvasad.apps.repository.ProductRepository;
 import com.savvasad.apps.repository.OrderProductRepository;
@@ -35,6 +36,10 @@ public class OrderServiceImpl implements OrderService {
         this.orderProductRepository = orderProductRepository;
     }
 
+    /* TODO: Order value should be calculated, not sent via request
+       TODO: 500 is returned when there is not enough stock
+     */
+
     @Override
     @Transactional
     public OrderDto save(OrderDto orderDto) {
@@ -47,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
         orderEntity = orderRepository.save(orderEntity);
 
         for (OrderProductDto opDto : orderDto.products()) {
-            ProductEntity product = productRepository.findOrThrow(opDto.productId());
+            ProductEntity product = findProductByIdOrThrow(opDto.productId());
 
             if (product.getStockQuantity() < opDto.quantity()) {
                 throw new IllegalArgumentException(String.format(
@@ -78,7 +83,24 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void delete(Long id) {
-        orderRepository.findOrThrow(id);
+        validateExists(id);
         orderRepository.deleteById(id);
+    }
+
+    // Private validation methods - business logic belongs in the service layer
+    private void validateExists(Long id) {
+        if (!orderRepository.existsById(id)) {
+            throw new ResourceNotFoundException(
+                    String.format("Order with id '%d' does not exist.", id)
+            );
+        }
+    }
+
+    // Helper method to find Product - could be moved to ProductService if needed
+    private ProductEntity findProductByIdOrThrow(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("Product not found: %s", id)
+                ));
     }
 }

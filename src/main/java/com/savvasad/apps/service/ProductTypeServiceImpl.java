@@ -24,9 +24,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public ProductTypeDTO save(ProductTypeDTO dto) {
-        if (productTypeRepository.existsByName(dto.name())) {
-            throw new DuplicateResourceException("ProductType with name '" + dto.name() + "' already exists");
-        }
+        validateNameNotExists(dto.name());
         ProductTypeEntity entity = productTypeMapper.toEntity(dto);
         return productTypeMapper.toDto(productTypeRepository.save(entity));
     }
@@ -43,12 +41,11 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public ProductTypeDTO update(Long id, ProductTypeDTO dto) {
-        ProductTypeEntity entity = productTypeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ProductType not found with id: " + id));
+        ProductTypeEntity entity = findByIdOrThrow(id);
 
         // Check if name is being changed to a duplicate (but allow keeping the same name)
-        if (!entity.getName().equals(dto.name()) && productTypeRepository.existsByName(dto.name())) {
-            throw new DuplicateResourceException("ProductType with name '" + dto.name() + "' already exists");
+        if (!entity.getName().equals(dto.name())) {
+            validateNameNotExists(dto.name());
         }
 
         entity.setName(dto.name());
@@ -58,9 +55,31 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public void deleteById(Long id) {
-        if (!productTypeRepository.existsById(id)) {
-            throw new ResourceNotFoundException("ProductType not found with id: " + id);
-        }
+        validateExists(id);
         productTypeRepository.deleteById(id);
+    }
+
+    // Private validation methods - business logic belongs in the service layer
+    private ProductTypeEntity findByIdOrThrow(Long id) {
+        return productTypeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("ProductType not found: %s", id)
+                ));
+    }
+
+    private void validateExists(Long id) {
+        if (!productTypeRepository.existsById(id)) {
+            throw new ResourceNotFoundException(
+                    String.format("ProductType with id '%d' does not exist.", id)
+            );
+        }
+    }
+
+    private void validateNameNotExists(String name) {
+        if (productTypeRepository.existsByName(name)) {
+            throw new DuplicateResourceException(
+                    String.format("ProductType with name '%s' already exists.", name)
+            );
+        }
     }
 }

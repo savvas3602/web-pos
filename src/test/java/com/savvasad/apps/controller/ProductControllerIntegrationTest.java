@@ -63,7 +63,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testGetProduct() {
-        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
         restTestClient.get().uri("/products/{id}", saved.getId())
                 .exchange()
                 .expectStatus().isOk()
@@ -77,7 +77,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testDelete() {
-        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
         restTestClient.delete().uri("/products/{id}", saved.getId())
                 .exchange()
                 .expectStatus().isNoContent();
@@ -86,7 +86,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testUpdate() {
-        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get()));
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
         ProductDTO updateTo = new ProductDTO(null,
                 "Updated Name",
                 new BigDecimal("88.88"),

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "orders_products")
-public class OrderProductEntity {
+public class OrderProductEntity extends BaseEntity {
     @EmbeddedId
     private OrderProductKey id;
 

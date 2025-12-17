@@ -1,7 +1,12 @@
+-- DB Creation Schema for Web POS Application
+-- Audit columns created_at and updated_at are populated by JPA, default values exist as fail-safe
+
 CREATE TABLE brands (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
-    description VARCHAR(500)
+    description VARCHAR(500),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_brands_name ON brands(name);
@@ -9,7 +14,9 @@ CREATE INDEX idx_brands_name ON brands(name);
 CREATE TABLE product_types (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
-    description VARCHAR(500)
+    description VARCHAR(500),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_product_types_name ON product_types(name);
@@ -22,7 +29,9 @@ CREATE TABLE products (
     stock_quantity INTEGER NOT NULL,
     description VARCHAR(500),
     product_type_id INTEGER REFERENCES product_types(id) ON DELETE SET NULL,
-    brand_id INTEGER REFERENCES brands(id) ON DELETE SET NULL
+    brand_id INTEGER REFERENCES brands(id) ON DELETE SET NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX idx_products_name ON products(name);
@@ -31,16 +40,17 @@ CREATE INDEX idx_products_brand_id ON products(brand_id);
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
+    order_value DOUBLE PRECISION NOT NULL DEFAULT 0,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    order_value DOUBLE PRECISION NOT NULL DEFAULT 0
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE orders_products (
     order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
     product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
     quantity INTEGER NOT NULL,
-
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT pk_orders_products PRIMARY KEY (order_id, product_id)
 );
 

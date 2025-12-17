@@ -4,13 +4,10 @@ import com.savvasad.apps.dto.ProductTypeDTO;
 import com.savvasad.apps.entity.ProductTypeEntity;
 import com.savvasad.apps.mapper.ProductTypeMapper;
 import com.savvasad.apps.repository.ProductTypeRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -66,6 +63,7 @@ class ProductTypeServiceImplTest {
         when(productTypeRepository.findById(1L)).thenReturn(Optional.of(entity));
         when(productTypeRepository.save(any())).thenReturn(entity);
         when(productTypeMapper.toDto(any())).thenReturn(new ProductTypeDTO(1L, "Type1-upd", "Desc1-upd"));
+        when(productTypeRepository.existsByName("Type1")).thenReturn(true);
 
         ProductTypeDTO dto = new ProductTypeDTO(1L, "Type1-upd", "Desc1-upd");
         ProductTypeDTO updated = productTypeService.update(1L, dto);

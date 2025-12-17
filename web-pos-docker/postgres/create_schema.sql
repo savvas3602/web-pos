@@ -1,3 +1,11 @@
+CREATE TABLE brands (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    description VARCHAR(500)
+);
+
+CREATE INDEX idx_brands_name ON brands(name);
+
 CREATE TABLE product_types (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
@@ -8,7 +16,7 @@ CREATE INDEX idx_product_types_name ON product_types(name);
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     retail_price DOUBLE PRECISION NOT NULL,
     wholesale_price DOUBLE PRECISION NOT NULL,
     stock_quantity INTEGER NOT NULL,
@@ -38,11 +46,3 @@ CREATE TABLE orders_products (
 
 CREATE INDEX idx_orders_products_order_id ON orders_products(order_id);
 CREATE INDEX idx_orders_products_product_id ON orders_products(product_id);
-
-CREATE TABLE brands (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    description VARCHAR(500)
-);
-
-CREATE INDEX idx_brands_name ON brands(name);

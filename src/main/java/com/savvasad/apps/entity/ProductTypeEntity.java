@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "product_types")
-public class ProductTypeEntity {
+public class ProductTypeEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

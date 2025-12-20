@@ -1,6 +1,5 @@
 -- DB Creation Schema for Web POS Application
 -- Audit columns created_at and updated_at are populated by JPA, default values exist as fail-safe
-
 CREATE TABLE brands (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
@@ -56,3 +55,16 @@ CREATE TABLE orders_products (
 
 CREATE INDEX idx_orders_products_order_id ON orders_products(order_id);
 CREATE INDEX idx_orders_products_product_id ON orders_products(product_id);
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX  idx_users_username ON users(username);
+CREATE INDEX  idx_users_email ON users(email);

@@ -1,5 +1,6 @@
 package com.savvasad.apps.exception;
 
+import io.jsonwebtoken.JwtException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,20 @@ public class GlobalExceptionHandler {
         Map<String, String> body = new HashMap<>();
         body.put("Data Integrity Violation", ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<@NonNull Object> handleDuplicateResource(UserExistsException ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("User Exists", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<@NonNull Object> handleJwtException(UserExistsException ex) {
+        Map<String, String> body = new HashMap<>();
+        body.put("Invalid JWT", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

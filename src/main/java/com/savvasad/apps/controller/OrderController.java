@@ -5,11 +5,13 @@ import com.savvasad.apps.service.OrderService;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class OrderController {
     private final OrderService orderService;
     public OrderController(OrderService orderService) {

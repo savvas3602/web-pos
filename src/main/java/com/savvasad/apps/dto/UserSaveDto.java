@@ -3,7 +3,7 @@ package com.savvasad.apps.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record UserDTO(
+public record UserSaveDto(
     Long id,
 
     @NotBlank(message = "Username is mandatory")
@@ -16,5 +16,6 @@ public record UserDTO(
     @Email(message = "Email should be valid")
     String email,
 
-    String token
+    @NotBlank(message = "Password is mandatory")
+    String password
 ) {}

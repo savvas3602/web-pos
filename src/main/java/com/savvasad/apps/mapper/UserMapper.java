@@ -1,6 +1,7 @@
 package com.savvasad.apps.mapper;
 
 import com.savvasad.apps.dto.UserDTO;
+import com.savvasad.apps.dto.UserSaveDto;
 import com.savvasad.apps.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +18,6 @@ public class UserMapper {
                 userEntity.getUsername(),
                 userEntity.getFullName(),
                 userEntity.getEmail(),
-                userEntity.getCreatedAt(),
-                userEntity.getUpdatedAt(),
                 null // Token is not stored in the entity
         );
     }
@@ -31,6 +30,21 @@ public class UserMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDTO.id());
         userEntity.setUsername(userDTO.username());
+        userEntity.setFullName(userDTO.fullName());
+        userEntity.setEmail(userDTO.email());
+
+        return userEntity;
+    }
+
+    public UserEntity toEntity(UserSaveDto userDTO) {
+        if (userDTO == null) {
+            return null;
+        }
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(userDTO.id());
+        userEntity.setUsername(userDTO.username());
+        userEntity.setPassword(userDTO.password());
         userEntity.setFullName(userDTO.fullName());
         userEntity.setEmail(userDTO.email());
 

@@ -1,11 +1,16 @@
 package com.savvasad.apps.controller;
 
+import com.savvasad.apps.dto.LoginResponseDto;
 import com.savvasad.apps.dto.ProductDTO;
+import com.savvasad.apps.dto.UserSaveDto;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.mapper.ProductMapper;
 import com.savvasad.apps.repository.ProductRepository;
+import com.savvasad.apps.service.UsersService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +18,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
 import java.math.BigDecimal;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureRestTestClient
 class ProductControllerIntegrationTest {
 
@@ -28,7 +35,12 @@ class ProductControllerIntegrationTest {
     private ProductRepository productRepository;
 
     @Autowired
+    private UsersService usersService;
+
+    @Autowired
     private ProductMapper productMapper;
+
+    AtomicReference<String> jwtToken = new AtomicReference<>("");
 
     private static final Supplier<ProductDTO> TEST_PRODUCT = () -> new ProductDTO(
             null,
@@ -40,6 +52,36 @@ class ProductControllerIntegrationTest {
             null
     );
 
+    @BeforeAll
+    void setupUserAndToken() {
+        usersService.findByUsername("test-user")
+                .ifPresent(userEntity -> usersService.deleteById(userEntity.getId()));
+
+        UserSaveDto userSaveDto = new UserSaveDto(
+                null,
+                "test-user",
+                "Test User",
+                "test-user@email.com",
+                "password1234"
+        );
+        usersService.save(userSaveDto);
+
+        // Obtain JWT token
+        restTestClient.post().uri("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(userSaveDto)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(LoginResponseDto.class)
+                .value(loginResponse -> {
+                    assertThat(loginResponse).isNotNull();
+                    assertThat(loginResponse.username()).isEqualTo("test-user");
+                    assertThat(loginResponse.token()).isNotBlank();
+
+                    jwtToken.set(loginResponse.token());
+                });
+    }
+
     @BeforeEach
     void setup() {
         productRepository.deleteAll(); // Clean state
@@ -49,6 +91,7 @@ class ProductControllerIntegrationTest {
     void testCreateProduct() {
         restTestClient.post().uri("/products")
                 .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", getBearerToken())
                 .body(TEST_PRODUCT.get())
                 .exchange()
                 .expectStatus().isCreated()
@@ -65,6 +108,7 @@ class ProductControllerIntegrationTest {
     void testGetProduct() {
         ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
         restTestClient.get().uri("/products/{id}", saved.getId())
+                .header("Authorization", getBearerToken())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(ProductDTO.class)
@@ -79,6 +123,7 @@ class ProductControllerIntegrationTest {
     void testDelete() {
         ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
         restTestClient.delete().uri("/products/{id}", saved.getId())
+                .header("Authorization", getBearerToken())
                 .exchange()
                 .expectStatus().isNoContent();
         assertThat(productRepository.findById(saved.getId())).isEmpty();
@@ -97,6 +142,7 @@ class ProductControllerIntegrationTest {
         );
 
         restTestClient.put().uri("/products/{id}", saved.getId())
+                .header("Authorization", getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(updateTo)
                 .exchange()
@@ -113,6 +159,7 @@ class ProductControllerIntegrationTest {
     @Test
     void testGetProduct_NotFound() {
         restTestClient.get().uri("/products/{id}", 99999L)
+                .header("Authorization", getBearerToken())
                 .exchange()
                 .expectStatus().isNotFound();
     }
@@ -120,6 +167,7 @@ class ProductControllerIntegrationTest {
     @Test
     void testDelete_NotFound() {
         restTestClient.delete().uri("/products/{id}", 99999L)
+                .header("Authorization", getBearerToken())
                 .exchange()
                 .expectStatus().isNotFound();
     }
@@ -128,9 +176,14 @@ class ProductControllerIntegrationTest {
     void testCreateProduct_InvalidInput() {
         ProductDTO invalid = new ProductDTO(null, "", null, null, -1, "", null);
         restTestClient.post().uri("/products")
+                .header("Authorization", getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(invalid)
                 .exchange()
                 .expectStatus().isBadRequest();
+    }
+
+    private String getBearerToken() {
+        return "Bearer " + jwtToken;
     }
 }

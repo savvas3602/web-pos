@@ -3,6 +3,7 @@ package com.savvasad.apps.controller;
 import com.savvasad.apps.dto.ProductTypeDTO;
 import com.savvasad.apps.service.ProductTypeService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product-types")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class ProductTypeController {
     private final ProductTypeService productTypeService;
 

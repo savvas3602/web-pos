@@ -5,6 +5,7 @@ import com.savvasad.apps.service.BrandService;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/brands")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class BrandController {
 
     private final BrandService brandService;

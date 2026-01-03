@@ -37,12 +37,27 @@ CREATE INDEX idx_products_name ON products(name);
 CREATE INDEX idx_products_product_type_id ON products(product_type_id);
 CREATE INDEX idx_products_brand_id ON products(brand_id);
 
-CREATE TABLE orders (
+CREATE TABLE payment_methods (
     id SERIAL PRIMARY KEY,
-    order_value DOUBLE PRECISION NOT NULL DEFAULT 0,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    description VARCHAR(500),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_payment_methods_name ON payment_methods(name);
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    order_value DOUBLE PRECISION NOT NULL DEFAULT 0,
+    total_overridden BOOLEAN NOT NULL DEFAULT FALSE,
+    comments VARCHAR(500),
+    payment_method_id INTEGER NOT NULL REFERENCES payment_methods(id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_orders_payment_method_id ON orders(payment_method_id);
 
 CREATE TABLE orders_products (
     order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
@@ -66,5 +81,30 @@ CREATE TABLE users (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX  idx_users_username ON users(username);
-CREATE INDEX  idx_users_email ON users(email);
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_email ON users(email);
+
+-- Reports section
+CREATE VIEW rpt_purchase_history AS
+SELECT o.id,
+       o.created_at,
+       o.order_value,
+       o.comments,
+       pm.name AS payment_method,
+       o.total_overridden,
+       SUM(op.quantity) AS total_items,
+       STRING_AGG(
+               p.name || ' x' || op.quantity, ', ' ORDER BY p.name
+       ) AS items
+FROM orders o
+    JOIN payment_methods pm ON pm.id = o.payment_method_id
+    JOIN orders_products op ON op.order_id = o.id
+    JOIN products p ON p.id = op.product_id
+GROUP BY
+    o.id,
+    o.created_at,
+    o.order_value,
+    o.comments,
+    pm.name,
+    o.total_overridden
+ORDER BY o.created_at DESC;

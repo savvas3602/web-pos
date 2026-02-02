@@ -1,0 +1,9 @@
+.striped-row {
+  background-color: #f5f5f5;
+}
+
+/* Optional: highlight on hover */
+.striped-row.Mui-hovered {
+  background-color: #e0e0e0;
+}
+

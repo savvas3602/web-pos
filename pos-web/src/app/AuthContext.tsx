@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {AuthTypes, type User} from './AuthTypes.ts';
+import {AuthTypes, type User} from './AuthTypes';
+import axios from 'axios';
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -12,29 +13,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const checkAuth = React.useCallback(async () => {
         setLoading(true);
-        try {
-            const response = await fetch('http://localhost:8080/auth/validate-session', {
-                method: 'GET',
-                credentials: 'include',
-            });
 
-            if (response.ok) {
-                const data = await response.json();
-                setIsAuthenticated(data?.isAuthenticated === true);
-                setUser(data?.user || null);
-            }
-            else {
+        axios.get('http://localhost:8080/auth/validate-session', { withCredentials: true })
+            .then(response => {
+                setIsAuthenticated(response.data.isAuthenticated);
+                setUser(response.data.user || null);
+            })
+            .catch(() => {
                 setIsAuthenticated(false);
                 setUser(null);
-            }
-        }
-        catch {
-            setIsAuthenticated(false);
-            setUser(null);
-        }
-        finally {
-            setLoading(false);
-        }
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     React.useEffect(() => {

@@ -2,18 +2,26 @@ import React from 'react';
 import {AppBar, Box,
     Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const drawerWidth = 240;
-    const navItems = ['New sale', 'Products', 'Brands'];
+    const drawerWidth = 200;
+    const navItems = [
+        { label: 'New sale', path: '/dashboard' },
+        { label: 'Products', path: '/products' },
+        { label: 'Brands', path: '/brands' },
+        { label: 'Purchase History', path: '/purchase-history' }
+    ];
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
     };
 
-    const container = window === undefined ? undefined : () => window().document.body;
+    const container = globalThis.window === undefined
+        ? undefined
+        : () => globalThis.window.document.body;
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -23,9 +31,9 @@ export default function Navbar() {
             <Divider />
             <List>
                 {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
+                    <ListItem key={item.label} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }} component={Link} to={item.path}>
+                            <ListItemText primary={item.label} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -34,17 +42,17 @@ export default function Navbar() {
     );
 
     return (
-        <Box sx={{ p: .8 }}>
-            <AppBar position="static" sx={{backgroundColor: '#394d5a', borderRadius: 4 }}>
+        <Box>
+            <AppBar position="sticky">
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
-
-                        sx={{ mr: 2, display: { sm: 'none' }}}
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
                     >
-                        <MenuIcon sx={{ color: 'white' }} />
+                        <MenuIcon />
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -53,14 +61,14 @@ export default function Navbar() {
                     >
                         K2
                     </Typography>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        {navItems.map((item) => (
+                            <Button key={item.label} sx={{ color: '#fff' }} component={Link} to={item.path}>
+                                {item.label}
+                            </Button>
+                        ))}
+                    </Box>
                 </Toolbar>
-                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                    {navItems.map((item) => (
-                        <Button key={item} sx={{ color: '#fff' }}>
-                            {item}
-                        </Button>
-                    ))}
-                </Box>
             </AppBar>
             <nav>
                 <Drawer
@@ -82,4 +90,3 @@ export default function Navbar() {
         </Box>
     );
 }
-

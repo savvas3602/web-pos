@@ -127,6 +127,12 @@
 
     <build>
         <plugins>
+            <!-- Spring Boot fat JAR repackaging -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
             <!-- copy scripts directory -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>

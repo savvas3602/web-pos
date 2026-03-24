@@ -1,4 +1,7 @@
 FROM postgres:latest
-COPY create_schema.sql /docker-schema/create_schema.sql
-COPY init-schema.sh /docker-entrypoint-initdb.d/init-schema.sh
-RUN chmod +x /docker-entrypoint-initdb.d/init-schema.sh
+
+COPY create-schema.sql /docker-schema/create-schema.sql
+COPY insert-initial-data.sql /docker-schema/insert-initial-data.sql
+COPY init-db.sh /docker-entrypoint-initdb.d/init-db.sh
+
+RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh

@@ -10,6 +10,7 @@ services:
             - ./postgres/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
 
     rest-api:
+        image: savvas25/k2/web-pos-rest-api:latest
         depends_on:
             - postgres
         build:
@@ -25,6 +26,7 @@ services:
             -   ./volumes/rest-api-logs:/app/logs
 
     web-app:
+        image: savvas25/k2/web-pos-web-app:latest
         depends_on:
             - rest-api
         build:

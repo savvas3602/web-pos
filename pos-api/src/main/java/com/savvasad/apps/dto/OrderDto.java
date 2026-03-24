@@ -1,9 +1,11 @@
 package com.savvasad.apps.dto;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +24,8 @@ public record OrderDto(
         Long id,
 
         @DecimalMin(value = "0.0", message = "Order value must be greater than zero")
-        double orderValue,
+        @Digits(integer = 19, fraction = 2, message = "Order value must be a valid currency amount")
+        BigDecimal orderValue,
 
         @NotNull(message = "Products list cannot be null")
         @Size(min = 1, message = "Order must contain at least one product")

@@ -1,6 +1,7 @@
 package com.savvasad.apps.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -13,8 +14,8 @@ public class OrderEntity extends BaseEntity {
     @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderProductEntity> orderProductEntities;
 
-    @Column(name = "order_value", nullable = false)
-    private double orderValue;
+    @Column(name = "order_value", nullable = false, precision = 19, scale = 2)
+    private BigDecimal orderValue;
 
     @Column(name = "total_overridden", nullable = false)
     private boolean totalOverridden = false;
@@ -30,9 +31,8 @@ public class OrderEntity extends BaseEntity {
 
     public Long getId() { return id; }
     public Set<OrderProductEntity> getOrderProducts() { return orderProductEntities; }
-    public void setOrderProducts(Set<OrderProductEntity> orderProductEntities) { this.orderProductEntities = orderProductEntities; }
-    public double getOrderValue() { return orderValue; }
-    public void setOrderValue(double orderValue) { this.orderValue = orderValue; }
+    public BigDecimal getOrderValue() { return orderValue; }
+    public void setOrderValue(BigDecimal orderValue) { this.orderValue = orderValue; }
     public boolean isTotalOverridden() { return totalOverridden; }
     public void setTotalOverridden(boolean totalOverridden) { this.totalOverridden = totalOverridden; }
     public String getComments() { return comments; }

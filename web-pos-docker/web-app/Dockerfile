@@ -10,11 +10,6 @@ RUN npm ci
 # Copy source
 COPY . .
 
-# Vite only exposes env-vars prefixed with VITE_ to the browser bundle.
-# Pass the API base URL at build time so it is baked into the static assets.
-ARG VITE_REST_API_URL=http://localhost:8080
-ENV VITE_REST_API_URL=${VITE_REST_API_URL}
-
 RUN npm run build
 
 # ── Stage 2: serve ──────────────────────────────────────────────────────────
@@ -23,8 +18,8 @@ FROM nginx:alpine
 # Copy built assets from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Replace the default nginx config with our SPA-aware one
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Using custom SPA-aware nginx.conf. Also allows to resolve API URL at runtime.
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 EXPOSE 80
 

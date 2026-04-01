@@ -110,6 +110,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Health checks & monitoring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- DTO, request object validation checks -->
         <dependency>
             <groupId>jakarta.validation</groupId>

@@ -10,11 +10,17 @@ services:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/postgresql
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
     rest-api:
         image: savvas25/k2-pos-rest-api:latest
         depends_on:
-            - postgres
+            postgres:
+                condition: service_healthy
         build:
             context: ../pos-api/
             dockerfile: ../web-pos-docker/rest-api/Dockerfile
@@ -30,7 +36,8 @@ services:
     web-app:
         image: savvas25/k2-pos-web-app:latest
         depends_on:
-            - rest-api
+            rest-api:
+                condition: service_healthy
         build:
             context: ../pos-web/
             dockerfile: ../web-pos-docker/web-app/Dockerfile

@@ -65,6 +65,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/auth/login",
                                 "/auth/validate-session",
+                                "/actuator/health",
+                                "/actuator/health/**",
                                 "/h2-console/**")
                         .permitAll()
                         .anyRequest().authenticated()

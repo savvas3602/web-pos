@@ -1,0 +1,12 @@
+### Rest-API health check
+GET http://localhost:8080/actuator/health
+content-type: application/json
+
+### Rest-API login
+POST http://localhost:8080/auth/login
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "admin1234!"
+}

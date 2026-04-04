@@ -7,9 +7,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-# Copy source
+# Copy source & build
 COPY . .
-
 RUN npm run build
 
 # ── Stage 2: serve ──────────────────────────────────────────────────────────
@@ -18,8 +17,13 @@ FROM nginx:alpine
 # Copy built assets from the builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Using custom SPA-aware nginx.conf. Also allows to resolve API URL at runtime.
+# SPA-aware nginx config with runtime API_URL injection.
+# The nginx image's entrypoint runs envsubst on *.template files
+# in /etc/nginx/templates/ and outputs to /etc/nginx/conf.d/.
 COPY nginx.conf /etc/nginx/templates/default.conf.template
+
+# Only substitute API_URL in the nginx template.
+ENV NGINX_ENVSUBST_FILTER="API_URL"
 
 EXPOSE 80
 

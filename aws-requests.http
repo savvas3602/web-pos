@@ -1,0 +1,22 @@
+### Rest-API health check
+GET https://k2-184fc10491af45ac9ed3975f94afbc42.ecs.eu-west-1.on.aws/actuator/health
+content-type: application/json
+
+### Rest-API login
+POST https://k2-184fc10491af45ac9ed3975f94afbc42.ecs.eu-west-1.on.aws/auth/login
+
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "admin1234"
+}
+
+### Web-App login
+POST https://k2-b62ab90df71b4588aaf8f56925a2b5c4.ecs.eu-west-1.on.aws/auth/login
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "admin1234"
+}

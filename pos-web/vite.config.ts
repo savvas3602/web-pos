@@ -6,12 +6,14 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
+      '/auth': 'http://localhost:8080',
+      '/products': 'http://localhost:8080',
+      '/product-types': 'http://localhost:8080',
+      '/payment-methods': 'http://localhost:8080',
+      '/orders': 'http://localhost:8080',
+      '/brands': 'http://localhost:8080',
+      '/reports': 'http://localhost:8080',
+    }
   },
   test: {
     environment: 'jsdom',

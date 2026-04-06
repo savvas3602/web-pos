@@ -4,7 +4,6 @@ content-type: application/json
 
 ### Rest-API login
 POST https://k2-184fc10491af45ac9ed3975f94afbc42.ecs.eu-west-1.on.aws/auth/login
-
 content-type: application/json
 
 {

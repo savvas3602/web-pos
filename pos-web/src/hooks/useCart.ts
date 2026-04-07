@@ -40,6 +40,10 @@ export const useCart = () => {
         }
     };
 
+    const removeItem = (id: number) => {
+        setOrderItems(orderItems.filter(item => item.id !== id));
+    };
+
     const resetCart = () => {
         setOrderItems([]);
         setTotal(0);
@@ -49,6 +53,7 @@ export const useCart = () => {
         orderItems,
         total,
         addItem,
+        removeItem,
         resetCart
     };
 };

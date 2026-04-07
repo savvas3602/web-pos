@@ -8,7 +8,8 @@ import {
     Stack
 } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { DataGrid, type GridColDef, type GridActionsColDef, GridActionsCellItem } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { orderDataService } from '../services/orderDataService';
 import { productTypeService } from '../services/productTypeService';
@@ -32,7 +33,7 @@ const SaleForm: React.FC = () => {
     }>({ open: false, message: '', severity: 'success' });
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 
-    const { orderItems, total, addItem, resetCart } = useCart();
+    const { orderItems, total, addItem, removeItem, resetCart } = useCart();
 
     useEffect(() => {
         void loadInitialData();
@@ -96,7 +97,7 @@ const SaleForm: React.FC = () => {
         setQuantity(1);
     };
 
-    const columns: GridColDef[] = [
+    const columns: (GridColDef | GridActionsColDef)[] = [
         { field: 'name', headerName: 'Product Name', flex: 1 },
         { field: 'description', headerName: 'Description', flex: 1 },
         { field: 'quantity', headerName: 'Quantity', width: 120 },
@@ -106,6 +107,19 @@ const SaleForm: React.FC = () => {
             headerName: 'Total Price',
             width: 120,
             valueFormatter: (param: { value: number }) => `€${Number(param).toFixed(2)}`
+        },
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: '',
+            width: 60,
+            getActions: ({ id }) => [
+                <GridActionsCellItem
+                    icon={<DeleteIcon sx={{ color: 'error.main' }} />}
+                    label="Remove"
+                    onClick={() => removeItem(Number(id))}
+                />
+            ]
         }
     ];
 

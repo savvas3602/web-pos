@@ -254,21 +254,22 @@ const Products: React.FC = () => {
                 <Box sx={{ mb: 3 }}>
                     <form onSubmit={handleSubmit}>
                         <Stack spacing={2.5}>
-                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                                <TextField
-                                    label="Product Name"
-                                    value={form.name}
-                                    onChange={(e) => setFormValue('name', e.target.value)}
-                                    required
-                                    fullWidth
-                                />
-                                <TextField
-                                    label="Product Description"
-                                    value={form.description}
-                                    onChange={(e) => setFormValue('description', e.target.value)}
-                                    fullWidth
-                                />
-                            </Stack>
+                            <TextField
+                                label="Product Name"
+                                value={form.name}
+                                onChange={(e) => setFormValue('name', e.target.value)}
+                                required
+                                fullWidth
+                            />
+                            <TextField
+                                label="Product Description"
+                                value={form.description}
+                                onChange={(e) => setFormValue('description', e.target.value)}
+                                fullWidth
+                                multiline
+                                minRows={3}
+                                maxRows={6}
+                            />
 
                             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
                                 <TextField

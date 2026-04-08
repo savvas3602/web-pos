@@ -5,7 +5,8 @@ import {
     Button,
     TextField,
     Paper,
-    Stack
+    Stack,
+    Tooltip
 } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DataGrid, type GridColDef, type GridActionsColDef, GridActionsCellItem } from '@mui/x-data-grid';
@@ -99,7 +100,34 @@ const SaleForm: React.FC = () => {
 
     const columns: (GridColDef | GridActionsColDef)[] = [
         { field: 'name', headerName: 'Product Name', flex: 1 },
-        { field: 'description', headerName: 'Description', flex: 1 },
+        {
+            field: 'description',
+            headerName: 'Description',
+            flex: 1,
+            renderCell: (params) => (
+                <Tooltip
+                    title={params.value}
+                    arrow
+                    placement="top"
+                    enterTouchDelay={50}
+                    leaveTouchDelay={3000}
+                    slotProps={{
+                        tooltip: {
+                            sx: {
+                                maxWidth: 420,
+                                fontSize: '0.875rem',
+                                lineHeight: 1.6,
+                                p: 1.5,
+                            }
+                        }
+                    }}
+                >
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {params.value}
+                    </span>
+                </Tooltip>
+            )
+        },
         { field: 'quantity', headerName: 'Quantity', width: 120 },
         { field: 'price', headerName: 'Unit Price', width: 120 },
         {

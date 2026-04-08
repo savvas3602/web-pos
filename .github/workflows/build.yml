@@ -20,7 +20,7 @@ on:
 jobs:
   # ── REST API ────────────────────────────────────────────────────────────────
   build-rest-api:
-    name: REST API — Build & Test
+    name: Rest API — Build & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +34,9 @@ jobs:
 
       - name: Build & test
         working-directory: pos-api
-        run: ./mvnw verify -B
+        run: |
+          chmod +x mvnw
+          ./mvnw verify -B
 
   # ── Web App ─────────────────────────────────────────────────────────────────
   build-web-app:

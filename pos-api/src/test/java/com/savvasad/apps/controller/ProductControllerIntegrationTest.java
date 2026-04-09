@@ -49,6 +49,7 @@ class ProductControllerIntegrationTest {
             new BigDecimal("79.99"),
             50,
             "Integration Test Product",
+            null,
             null
     );
 
@@ -105,7 +106,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testGetProduct() {
-        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null, null));
         restTestClient.get().uri("/products/{id}", saved.getId())
                 .header("Authorization", getBearerToken())
                 .exchange()
@@ -120,7 +121,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testDelete() {
-        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null, null));
         restTestClient.delete().uri("/products/{id}", saved.getId())
                 .header("Authorization", getBearerToken())
                 .exchange()
@@ -130,13 +131,14 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testUpdate() {
-        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null));
+        ProductEntity saved = productRepository.save(productMapper.toEntity(TEST_PRODUCT.get(), null, null));
         ProductDTO updateTo = new ProductDTO(null,
                 "Updated Name",
                 new BigDecimal("88.88"),
                 new BigDecimal("77.77"),
                 60,
                 "Updated Desc",
+                null,
                 null
         );
 
@@ -173,7 +175,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void testCreateProduct_InvalidInput() {
-        ProductDTO invalid = new ProductDTO(null, "", null, null, -1, "", null);
+        ProductDTO invalid = new ProductDTO(null, "", null, null, -1, "", null, null);
         restTestClient.post().uri("/products")
                 .header("Authorization", getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)

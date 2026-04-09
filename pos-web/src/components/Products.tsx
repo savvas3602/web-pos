@@ -25,6 +25,8 @@ import type { Product } from '../types/Product';
 import { productService } from '../services/productService';
 import type { ProductType } from '../types/ProductType';
 import { productTypeService } from '../services/productTypeService';
+import type { Brand } from '../types/Brand';
+import { brandService } from '../services/brandService';
 
 type ProductFormState = {
     name: string;
@@ -33,6 +35,7 @@ type ProductFormState = {
     wholesalePrice: string;
     stockQuantity: string;
     productTypeId: number | '';
+    brandId: number | '';
 };
 
 const initialFormState: ProductFormState = {
@@ -41,12 +44,14 @@ const initialFormState: ProductFormState = {
     retailPrice: '',
     wholesalePrice: '',
     stockQuantity: '',
-    productTypeId: ''
+    productTypeId: '',
+    brandId: ''
 };
 
 const Products: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [productTypes, setProductTypes] = useState<ProductType[]>([]);
+    const [brands, setBrands] = useState<Brand[]>([]);
     const [form, setForm] = useState<ProductFormState>(initialFormState);
     const [editingId, setEditingId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
@@ -63,9 +68,13 @@ const Products: React.FC = () => {
     const loadInitialData = async () => {
         setLoading(true);
         try {
-            const productTypeData = await productTypeService.getAll();
+            const [productTypeData, brandData] = await Promise.all([
+                productTypeService.getAll(),
+                brandService.getAll()
+            ]);
             setProductTypes(productTypeData);
-            await fetchProducts(productTypeData);
+            setBrands(brandData);
+            await fetchProducts(productTypeData, brandData);
         } catch (err: any) {
             setNotification({
                 open: true,
@@ -77,15 +86,18 @@ const Products: React.FC = () => {
         }
     };
 
-    const fetchProducts = async (types: ProductType[] = productTypes) => {
+    const fetchProducts = async (types: ProductType[] = productTypes, brandList: Brand[] = brands) => {
         const data = await productService.getAll();
 
         const mappedProducts: Product[] = data.map((item) => {
             const productType = types.find((type) => type.id === item.productTypeId);
+            const brand = brandList.find((b) => b.id === item.brandId);
             return {
                 ...item,
                 productType,
-                productTypeId: item.productTypeId ?? productType?.id
+                productTypeId: item.productTypeId ?? productType?.id,
+                brand,
+                brandId: item.brandId ?? brand?.id
             };
         });
 
@@ -107,6 +119,7 @@ const Products: React.FC = () => {
         if (editingId) {
             const originalProduct = products.find((product) => product.id === editingId);
             const originalProductTypeId = originalProduct?.productType?.id ?? originalProduct?.productTypeId ?? '';
+            const originalBrandId = originalProduct?.brand?.id ?? originalProduct?.brandId ?? '';
 
             if (
                 originalProduct &&
@@ -115,7 +128,8 @@ const Products: React.FC = () => {
                 originalProduct.retailPrice === Number(form.retailPrice) &&
                 originalProduct.wholesalePrice === Number(form.wholesalePrice) &&
                 originalProduct.stockQuantity === Number(form.stockQuantity) &&
-                originalProductTypeId === form.productTypeId
+                originalProductTypeId === form.productTypeId &&
+                originalBrandId === form.brandId
             ) {
                 setNotification({ open: true, message: 'No changes to save.', severity: 'info' });
                 return;
@@ -127,6 +141,11 @@ const Products: React.FC = () => {
             return;
         }
 
+        if (!form.brandId) {
+            setNotification({ open: true, message: 'Please select a valid brand.', severity: 'error' });
+            return;
+        }
+
         setLoading(true);
         try {
             const productData = {
@@ -135,7 +154,8 @@ const Products: React.FC = () => {
                 retailPrice: Number(form.retailPrice),
                 wholesalePrice: Number(form.wholesalePrice),
                 stockQuantity: Number(form.stockQuantity),
-                productTypeId: form.productTypeId
+                productTypeId: form.productTypeId,
+                brandId: form.brandId
             };
 
             if (editingId) {
@@ -162,7 +182,8 @@ const Products: React.FC = () => {
             retailPrice: String(product.retailPrice),
             wholesalePrice: String(product.wholesalePrice),
             stockQuantity: String(product.stockQuantity),
-            productTypeId: product.productType?.id ?? product.productTypeId ?? ''
+            productTypeId: product.productType?.id ?? product.productTypeId ?? '',
+            brandId: product.brand?.id ?? product.brandId ?? ''
         });
         setEditingId(product.id);
     };
@@ -216,6 +237,13 @@ const Products: React.FC = () => {
             valueGetter: (_, row) => row.productType?.name ?? 'N/A'
         },
         {
+            field: 'brand',
+            headerName: 'Brand',
+            minWidth: 120,
+            flex: 1,
+            valueGetter: (_, row) => row.brand?.name ?? 'N/A'
+        },
+        {
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
@@ -254,22 +282,57 @@ const Products: React.FC = () => {
                 <Box sx={{ mb: 3 }}>
                     <form onSubmit={handleSubmit}>
                         <Stack spacing={2.5}>
-                            <TextField
-                                label="Product Name"
-                                value={form.name}
-                                onChange={(e) => setFormValue('name', e.target.value)}
-                                required
-                                fullWidth
-                            />
-                            <TextField
-                                label="Product Description"
-                                value={form.description}
-                                onChange={(e) => setFormValue('description', e.target.value)}
-                                fullWidth
-                                multiline
-                                minRows={3}
-                                maxRows={6}
-                            />
+                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
+                                <TextField
+                                    label="Product Name"
+                                    value={form.name}
+                                    onChange={(e) => setFormValue('name', e.target.value)}
+                                    required
+                                    fullWidth
+                                />
+                                <TextField
+                                    select
+                                    label="Product Type"
+                                    value={form.productTypeId}
+                                    onChange={(e) => setFormValue('productTypeId', Number(e.target.value))}
+                                    required
+                                    fullWidth
+                                >
+                                    {productTypes.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Stack>
+                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="stretch">
+                                <TextField
+                                    select
+                                    label="Brand"
+                                    value={form.brandId}
+                                    onChange={(e) => setFormValue('brandId', e.target.value === '' ? '' : Number(e.target.value))}
+                                    fullWidth
+                                    sx={{ flex: 1 }}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {brands.map((option) => (
+                                        <MenuItem key={option.id} value={option.id}>
+                                            {option.name}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                                <TextField
+                                    label="Product Description"
+                                    value={form.description}
+                                    onChange={(e) => setFormValue('description', e.target.value)}
+                                    multiline
+                                    minRows={3}
+                                    maxRows={6}
+                                    sx={{ flex: 1 }}
+                                />
+                            </Stack>
 
                             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
                                 <TextField
@@ -297,21 +360,6 @@ const Products: React.FC = () => {
                                     fullWidth
                                 />
                             </Stack>
-
-                            <TextField
-                                select
-                                label="Product Type"
-                                value={form.productTypeId}
-                                onChange={(e) => setFormValue('productTypeId', Number(e.target.value))}
-                                required
-                                sx={{ width: { xs: '100%', sm: '50%' } }}
-                            >
-                                {productTypes.map((option) => (
-                                    <MenuItem key={option.id} value={option.id}>
-                                        {option.name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
 
                             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
                                 <Button

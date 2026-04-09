@@ -32,6 +32,7 @@ export const useCart = () => {
                     id: product.id,
                     name: product.name,
                     description: product.description,
+                    brand: product.brand,
                     price: product.retailPrice,
                     quantity,
                     totalItemPrice: product.retailPrice * quantity

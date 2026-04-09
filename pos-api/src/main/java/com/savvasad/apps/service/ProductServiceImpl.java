@@ -1,10 +1,12 @@
 package com.savvasad.apps.service;
 
 import com.savvasad.apps.dto.ProductDTO;
+import com.savvasad.apps.entity.BrandEntity;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.entity.ProductTypeEntity;
 import com.savvasad.apps.helper.EntityHelper;
 import com.savvasad.apps.mapper.ProductMapper;
+import com.savvasad.apps.repository.BrandRepository;
 import com.savvasad.apps.repository.ProductRepository;
 import com.savvasad.apps.repository.ProductTypeRepository;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,17 @@ import static java.util.Objects.nonNull;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductTypeRepository productTypeRepository;
+    private final BrandRepository brandRepository;
     private final ProductMapper productMapper;
 
     public ProductServiceImpl(ProductRepository productRepository,
                               ProductTypeRepository productTypeRepository,
+                              BrandRepository brandRepository,
                               ProductMapper productMapper
     ) {
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
+        this.brandRepository = brandRepository;
         this.productMapper = productMapper;
     }
 
@@ -36,7 +41,11 @@ public class ProductServiceImpl implements ProductService {
                 ? findProductTypeByIdOrThrow(productDTO.productTypeId())
                 : null;
 
-        ProductEntity productEntity = productMapper.toEntity(productDTO, productType);
+        BrandEntity brand = nonNull(productDTO.brandId())
+                ? findBrandByIdOrThrow(productDTO.brandId())
+                : null;
+
+        ProductEntity productEntity = productMapper.toEntity(productDTO, productType, brand);
         return productMapper.toDto(productRepository.save(productEntity));
     }
 
@@ -71,6 +80,12 @@ public class ProductServiceImpl implements ProductService {
                         : null
         );
 
+        productEntity.setBrand(
+                nonNull(productDTO.brandId())
+                        ? findBrandByIdOrThrow(productDTO.brandId())
+                        : null
+        );
+
         return productMapper.toDto(productRepository.save(productEntity));
     }
 
@@ -96,5 +111,10 @@ public class ProductServiceImpl implements ProductService {
     private ProductTypeEntity findProductTypeByIdOrThrow(Long productTypeId) {
         return productTypeRepository.findById(productTypeId)
                 .orElseThrow(() -> EntityHelper.throwResourceNotFoundException("Product Type", productTypeId));
+    }
+
+    private BrandEntity findBrandByIdOrThrow(Long brandId) {
+        return brandRepository.findById(brandId)
+                .orElseThrow(() -> EntityHelper.throwResourceNotFoundException("Brand", brandId));
     }
 }

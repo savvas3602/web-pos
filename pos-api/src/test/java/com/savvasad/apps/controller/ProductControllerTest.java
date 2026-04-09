@@ -49,7 +49,7 @@ class ProductControllerTest {
     void testFindAll() throws Exception {
         when(productService.findAll())
                 .thenReturn(List.of(new ProductDTO(
-                        1L, "Test", BigDecimal.ONE, BigDecimal.TEN, 100, "desc", 1L
+                        1L, "Test", BigDecimal.ONE, BigDecimal.TEN, 100, "desc", 1L, 1L
                 )));
 
         mockMvc.perform(get("/products"))
@@ -63,7 +63,7 @@ class ProductControllerTest {
     void testGetById() throws Exception {
         when(productService.findById(1L))
                 .thenReturn(Optional.of(new ProductDTO(
-                        1L, "Test", BigDecimal.TEN, BigDecimal.TWO, 100, "desc", 1L
+                        1L, "Test", BigDecimal.TEN, BigDecimal.TWO, 100, "desc", 1L, 1L
                 )));
 
         mockMvc.perform(get("/products/1"))
@@ -87,7 +87,7 @@ class ProductControllerTest {
     @Test
     void testCreateProduct() throws Exception {
         when(productService.save(any(ProductDTO.class)))
-                .thenReturn(new ProductDTO(2L, "New", BigDecimal.TEN, BigDecimal.ONE, 50, "desc new", 1L));
+                .thenReturn(new ProductDTO(2L, "New", BigDecimal.TEN, BigDecimal.ONE, 50, "desc new", 1L, 1L));
 
         mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -126,7 +126,7 @@ class ProductControllerTest {
     void testUpdate() throws Exception {
         when(productService.update(eq(1L), any(ProductDTO.class)))
                 .thenReturn(new ProductDTO(
-                        1L, "Updated", BigDecimal.TEN, BigDecimal.TEN, 60, "desc updated", 1L
+                        1L, "Updated", BigDecimal.TEN, BigDecimal.TEN, 60, "desc updated", 1L, 1L
                 ));
 
         mockMvc.perform(put("/products/1")

@@ -1,4 +1,5 @@
 import type { ProductType } from "./ProductType";
+import type { Brand } from "./Brand";
 
 export interface Product {
     id: number;
@@ -9,4 +10,6 @@ export interface Product {
     description?: string;
     productTypeId?: number;
     productType?: ProductType;
+    brandId?: number;
+    brand?: Brand;
 }

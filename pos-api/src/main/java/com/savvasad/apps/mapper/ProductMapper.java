@@ -1,13 +1,14 @@
 package com.savvasad.apps.mapper;
 
 import com.savvasad.apps.dto.ProductDTO;
+import com.savvasad.apps.entity.BrandEntity;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.entity.ProductTypeEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    public ProductEntity toEntity(ProductDTO dto, ProductTypeEntity productType) {
+    public ProductEntity toEntity(ProductDTO dto, ProductTypeEntity productType, BrandEntity brand) {
         return new ProductEntity(
                 dto.id(),
                 dto.name(),
@@ -15,7 +16,8 @@ public class ProductMapper {
                 dto.wholesalePrice(),
                 dto.stockQuantity(),
                 dto.description(),
-                productType
+                productType,
+                brand
         );
     }
 
@@ -27,7 +29,8 @@ public class ProductMapper {
                 productEntity.getWholesalePrice(),
                 productEntity.getStockQuantity(),
                 productEntity.getDescription(),
-                productEntity.getProductType() != null ? productEntity.getProductType().getId() : null
+                productEntity.getProductType() != null ? productEntity.getProductType().getId() : null,
+                productEntity.getBrand() != null ? productEntity.getBrand().getId() : null
         );
     }
 }

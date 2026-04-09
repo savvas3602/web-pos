@@ -15,9 +15,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { orderDataService } from '../services/orderDataService';
 import { productTypeService } from '../services/productTypeService';
 import { paymentMethodService } from '../services/paymentMethodService';
+import { brandService } from '../services/brandService';
 
 import type { Product } from '../types/Product';
 import type { PaymentMethod } from '../types/PaymentMethod';
+import type { Brand } from '../types/Brand';
 
 import NotificationSnackbar from './NotificationSnackbar';
 import ConfirmDialog from './SaleForm/ConfirmDialog';
@@ -26,6 +28,7 @@ import { useCart } from '../hooks/useCart';
 const SaleForm: React.FC = () => {
     const [productTypes, setProductTypes] = useState<{ id: number; name: string }[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
+    const [brands, setBrands] = useState<Brand[]>([]);
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [quantity, setQuantity] = useState<number>(1);
@@ -42,16 +45,18 @@ const SaleForm: React.FC = () => {
 
     useEffect(() => {
         void fetchProducts();
-    }, [productTypes]);
+    }, [productTypes, brands]);
 
     const loadInitialData = async () => {
         try {
-            const [productTypesData, paymentMethodsData] = await Promise.all([
+            const [productTypesData, paymentMethodsData, brandsData] = await Promise.all([
                 productTypeService.getAll(),
-                paymentMethodService.getAll()
+                paymentMethodService.getAll(),
+                brandService.getAll()
             ]);
             setProductTypes(productTypesData);
             setPaymentMethods(paymentMethodsData);
+            setBrands(brandsData);
         } catch (err: any) {
             setNotification({
                 open: true,
@@ -70,9 +75,11 @@ const SaleForm: React.FC = () => {
                 const productType = productTypes.find(
                     pt => pt.id === product.productTypeId
                 );
+                const brand = brands.find(b => b.id === product.brandId);
                 return {
                     ...product,
-                    productType: productType ? { id: productType.id, name: productType.name } : undefined
+                    productType: productType ? { id: productType.id, name: productType.name } : undefined,
+                    brand: brand ?? undefined
                 };
             });
             setProducts(productsWithTypes);
@@ -127,6 +134,12 @@ const SaleForm: React.FC = () => {
                     </span>
                 </Tooltip>
             )
+        },
+        {
+            field: 'brand',
+            headerName: 'Brand',
+            width: 130,
+            valueGetter: (_: any, row: any) => row.brand?.name ?? 'N/A'
         },
         { field: 'quantity', headerName: 'Quantity', width: 120 },
         { field: 'price', headerName: 'Unit Price', width: 120 },

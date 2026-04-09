@@ -30,6 +30,10 @@ public class ProductEntity extends BaseEntity {
     @JoinColumn(name = "product_type_id")
     private ProductTypeEntity productType;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brand;
+
     public ProductEntity() {}
 
     public ProductEntity(Long id,
@@ -38,7 +42,8 @@ public class ProductEntity extends BaseEntity {
                          BigDecimal wholesalePrice,
                          int stockQuantity,
                          String description,
-                         ProductTypeEntity productType
+                         ProductTypeEntity productType,
+                         BrandEntity brand
     ) {
         this.id = id;
         this.name = name;
@@ -47,6 +52,7 @@ public class ProductEntity extends BaseEntity {
         this.stockQuantity = stockQuantity;
         this.description = description;
         this.productType = productType;
+        this.brand = brand;
     }
 
     // Getters and setters
@@ -104,5 +110,13 @@ public class ProductEntity extends BaseEntity {
 
     public void setProductType(ProductTypeEntity productType) {
         this.productType = productType;
+    }
+
+    public BrandEntity getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandEntity brand) {
+        this.brand = brand;
     }
 }

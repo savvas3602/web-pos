@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Box,
     Button,
@@ -33,6 +33,8 @@ const ProductTypes: React.FC = () => {
     const [notification, setNotification] = useState<{
         open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
     }>({ open: false, message: '', severity: 'success' });
+
+    const formRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         (async () => {
@@ -87,11 +89,14 @@ const ProductTypes: React.FC = () => {
     const handleEdit = (productType: ProductType) => {
         setProductTypeName(productType.name);
         setEditingId(productType.id);
+        setNotification({ open: true, message: 'Entered update mode', severity: 'info' });
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
     const handleCancelEdit = () => {
         setProductTypeName("");
         setEditingId(null);
+        setNotification({ open: true, message: 'Exited update mode – no changes were saved', severity: 'info' });
     };
 
     const handleDeleteClick = (productType: ProductType) => {
@@ -157,7 +162,7 @@ const ProductTypes: React.FC = () => {
                 severity={notification.severity}
                 onClose={() => setNotification({ ...notification, open: false })}
             />
-            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+            <Paper ref={formRef} sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
                     Manage Product Types
                 </Typography>

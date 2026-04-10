@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Box,
     Button,
@@ -35,6 +35,8 @@ const Brands: React.FC = () => {
     const [notification, setNotification] = useState<{
         open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
     }>({ open: false, message: '', severity: 'success' });
+
+    const formRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         (async () => {
@@ -94,12 +96,15 @@ const Brands: React.FC = () => {
         setBrandName(brand.name);
         setBrandDescription(brand.description || '');
         setEditingId(brand.id);
+        setNotification({ open: true, message: 'Entered update mode', severity: 'info' });
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
     const handleCancelEdit = () => {
         setBrandName("");
         setBrandDescription("");
         setEditingId(null);
+        setNotification({ open: true, message: 'Exited update mode – no changes were saved', severity: 'info' });
     };
 
     const handleDeleteClick = (brand: Brand) => {
@@ -169,7 +174,7 @@ const Brands: React.FC = () => {
                 severity={notification.severity}
                 onClose={() => setNotification({ ...notification, open: false })}
             />
-            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+            <Paper ref={formRef} sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
                     Manage Brands
                 </Typography>

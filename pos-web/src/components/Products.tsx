@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
     Box,
     Button,
@@ -10,7 +10,8 @@ import {
     DialogActions,
     Stack,
     Paper,
-    MenuItem
+    MenuItem,
+    Tooltip
 } from '@mui/material';
 import {
     DataGrid,
@@ -60,6 +61,8 @@ const Products: React.FC = () => {
     const [notification, setNotification] = useState<{
         open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
     }>({ open: false, message: '', severity: 'success' });
+
+    const formRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         void loadInitialData();
@@ -111,6 +114,11 @@ const Products: React.FC = () => {
     const resetForm = () => {
         setForm(initialFormState);
         setEditingId(null);
+    };
+
+    const handleCancelEdit = () => {
+        resetForm();
+        setNotification({ open: true, message: 'Exited update mode – no changes were saved', severity: 'info' });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -186,6 +194,8 @@ const Products: React.FC = () => {
             brandId: product.brand?.id ?? product.brandId ?? ''
         });
         setEditingId(product.id);
+        setNotification({ open: true, message: 'Entered update mode', severity: 'info' });
+        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
     const handleDeleteClick = (product: Product) => {
@@ -225,7 +235,35 @@ const Products: React.FC = () => {
     const columns: GridColDef<Product>[] = useMemo(() => [
         { field: 'id', headerName: 'ID', minWidth: 60, flex: 0.3 },
         { field: 'name', headerName: 'Name', minWidth: 120, flex: 1 },
-        { field: 'description', headerName: 'Description', minWidth: 120, flex: 1 },
+        {
+            field: 'description',
+            headerName: 'Description',
+            minWidth: 120,
+            flex: 1,
+            renderCell: (params) => (
+                <Tooltip
+                    title={params.value}
+                    arrow
+                    placement="top"
+                    enterTouchDelay={50}
+                    leaveTouchDelay={3000}
+                    slotProps={{
+                        tooltip: {
+                            sx: {
+                                maxWidth: 420,
+                                fontSize: '0.875rem',
+                                lineHeight: 1.6,
+                                p: 1.5,
+                            }
+                        }
+                    }}
+                >
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {params.value}
+                    </span>
+                </Tooltip>
+            )
+        },
         { field: 'retailPrice', headerName: 'Retail Price', type: 'number', minWidth: 120, flex: 0.5 },
         { field: 'wholesalePrice', headerName: 'Wholesale Price', type: 'number', minWidth: 120, flex: 0.5 },
         { field: 'stockQuantity', headerName: 'Stock', type: 'number', minWidth: 100, flex: 0.4 },
@@ -274,7 +312,7 @@ const Products: React.FC = () => {
                 severity={notification.severity}
                 onClose={() => setNotification({ ...notification, open: false })}
             />
-            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+            <Paper ref={formRef} sx={{ p: { xs: 2, sm: 3 } }}>
                 <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
                     Manage Products
                 </Typography>
@@ -375,7 +413,7 @@ const Products: React.FC = () => {
                                         type="button"
                                         variant="outlined"
                                         color="inherit"
-                                        onClick={resetForm}
+                                        onClick={handleCancelEdit}
                                         sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 }}}
                                     >
                                         Cancel

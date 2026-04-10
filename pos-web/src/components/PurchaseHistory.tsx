@@ -6,7 +6,8 @@ import {
     Typography,
     Paper,
     Stack,
-    MenuItem
+    MenuItem,
+    Tooltip
 } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import TodayIcon from '@mui/icons-material/Today';
@@ -154,7 +155,35 @@ const PurchaseHistory: React.FC = () => {
             valueFormatter: (value) => formatPaymentMethod(String(value))
         },
         { field: 'totalItems', headerName: '# Items', width: 100 },
-        { field: 'items', headerName: 'Products', flex: 1, minWidth: 300 },
+        {
+            field: 'items',
+            headerName: 'Products',
+            flex: 1,
+            minWidth: 300,
+            renderCell: (params) => (
+                <Tooltip
+                    title={params.value}
+                    arrow
+                    placement="top"
+                    enterTouchDelay={50}
+                    leaveTouchDelay={3000}
+                    slotProps={{
+                        tooltip: {
+                            sx: {
+                                maxWidth: 420,
+                                fontSize: '0.875rem',
+                                lineHeight: 1.6,
+                                p: 1.5,
+                            }
+                        }
+                    }}
+                >
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {params.value}
+                    </span>
+                </Tooltip>
+            )
+        },
         {
             field: 'totalOverridden',
             headerName: 'Override',

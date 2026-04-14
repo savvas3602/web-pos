@@ -1,5 +1,6 @@
 package com.savvasad.apps.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public record OrderDto(
 
         @NotNull(message = "Products list cannot be null")
         @Size(min = 1, message = "Order must contain at least one product")
-        List<OrderProductDto> products,
+        List<@Valid OrderProductDto> products,
 
         boolean totalOverridden,
 

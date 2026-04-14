@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/products")
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class ProductController {
 
     private final ProductService productService;
@@ -56,6 +56,7 @@ public class ProductController {
      * @return HTTP 200 OK with the updated ProductDTO <br/> HTTP 404 If ProductType is not found
      */
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.update(id, productDTO));
     }
@@ -66,6 +67,7 @@ public class ProductController {
      * @return HTTP 204 No Content (body is empty) <br/> HTTP 404 If not found
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull Void> delete(@PathVariable Long id) {
         productService.deleteById(id);
         return ResponseEntity.noContent().build();
@@ -78,6 +80,7 @@ public class ProductController {
      * <br/> HTTP 404 If ProductType is not found
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull ProductDTO> save(@Valid @RequestBody ProductDTO productDTO) {
         ProductDTO savedProduct = productService.save(productDTO);
         URI location = ServletUriComponentsBuilder

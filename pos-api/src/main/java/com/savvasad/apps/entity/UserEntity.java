@@ -1,5 +1,6 @@
 package com.savvasad.apps.entity;
 
+import com.savvasad.apps.enums.UserRole;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,10 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getUsername() { return username; }
@@ -31,5 +36,7 @@ public class UserEntity extends BaseEntity {
     public void setFullName(String fullName) { this.fullName = fullName; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
 }
 

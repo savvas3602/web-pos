@@ -1,6 +1,5 @@
 package com.savvasad.apps.security;
 
-import com.savvasad.apps.repository.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -29,11 +28,9 @@ import static java.util.Objects.nonNull;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserService userService;
 
-    public JwtAuthenticationFilter(JwtService jwtService, UserService userService) {
+    public JwtAuthenticationFilter(JwtService jwtService) {
         this.jwtService = jwtService;
-        this.userService = userService;
     }
 
     @Override
@@ -56,13 +53,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String username = jwtService.extractUsername(jwtToken);
 
         if (nonNull(username) && isNull(SecurityContextHolder.getContext().getAuthentication())) {
-            var userEntity = userService.findByUsername(username).orElse(null);
+            if (jwtService.isTokenValid(jwtToken, username)) {
+                String role = jwtService.extractRole(jwtToken);
 
-            if (nonNull(userEntity) && jwtService.isTokenValid(jwtToken, username)) {
                 UserDetails userDetails = User.builder()
-                        .username(userEntity.getUsername())
-                        .password(userEntity.getPassword())
-                        .authorities("ROLE_USER")
+                        .username(username)
+                        .password("") // not needed — token signature already proves identity
+                        .authorities(role)
                         .build();
 
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

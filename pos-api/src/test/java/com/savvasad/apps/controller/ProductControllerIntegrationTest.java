@@ -4,6 +4,7 @@ import com.savvasad.apps.dto.LoginResponseDto;
 import com.savvasad.apps.dto.ProductDTO;
 import com.savvasad.apps.dto.UserSaveDto;
 import com.savvasad.apps.entity.ProductEntity;
+import com.savvasad.apps.enums.UserRole;
 import com.savvasad.apps.mapper.ProductMapper;
 import com.savvasad.apps.repository.ProductRepository;
 import com.savvasad.apps.service.UsersService;
@@ -62,7 +63,8 @@ class ProductControllerIntegrationTest {
                 "test-user",
                 "Test User",
                 "test-user@email.com",
-                "password123"
+                "password123",
+                UserRole.ADMIN
         );
         usersService.save(userSaveDto);
 

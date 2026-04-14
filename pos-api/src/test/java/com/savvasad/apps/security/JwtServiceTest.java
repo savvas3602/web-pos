@@ -3,6 +3,7 @@ package com.savvasad.apps.security;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.savvasad.apps.enums.UserRole;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class JwtServiceTest {
 
     @Test
     void generateToken() throws JsonProcessingException {
-        String jwtToken = jwtService.generateToken(username);
+        String jwtToken = jwtService.generateToken(username, UserRole.USER.getAuthority());
         log.info("JWT Token: {}", jwtToken);
 
         String[] parts = jwtToken.split("\\.");
@@ -59,17 +60,26 @@ class JwtServiceTest {
 
         // Assert issued at is set
         assertThat(node.findValue("iat").toString().equals(String.valueOf(System.currentTimeMillis())));
+
+        // Assert role claim is embedded
+        assertThat(node.findValue("role").asText()).isEqualTo(UserRole.USER.getAuthority());
+    }
+
+    @Test
+    void extractRole_returnsRoleEmbeddedInToken() {
+        String token = jwtService.generateToken(username, UserRole.ADMIN.getAuthority());
+        assertThat(jwtService.extractRole(token)).isEqualTo(UserRole.ADMIN.getAuthority());
     }
 
     @Test
     void isTokenValid_returnsTrueForValidToken() {
-        String token = jwtService.generateToken(username);
+        String token = jwtService.generateToken(username, UserRole.USER.getAuthority());
         assertThat(jwtService.isTokenValid(token, username)).isTrue();
     }
 
     @Test
     void isTokenValid_returnsFalseForInvalidUsername() {
-        String token = jwtService.generateToken(username);
+        String token = jwtService.generateToken(username, UserRole.USER.getAuthority());
         assertThat(jwtService.isTokenValid(token, "other_user")).isFalse();
     }
 
@@ -78,7 +88,7 @@ class JwtServiceTest {
         long originalExpiration = jwtService.jwtExpirationMs;
         jwtService.jwtExpirationMs = -1000;
 
-        String token = jwtService.generateToken(username);
+        String token = jwtService.generateToken(username, UserRole.USER.getAuthority());
 
         assertThatThrownBy(() -> jwtService.isTokenValid(token, username))
                 .isInstanceOf(ExpiredJwtException.class);

@@ -18,6 +18,7 @@ public class UserMapper {
                 userEntity.getUsername(),
                 userEntity.getFullName(),
                 userEntity.getEmail(),
+                userEntity.getRole(),
                 null // Token is not stored in the entity
         );
     }
@@ -32,6 +33,7 @@ public class UserMapper {
         userEntity.setUsername(userDTO.username());
         userEntity.setFullName(userDTO.fullName());
         userEntity.setEmail(userDTO.email());
+        userEntity.setRole(userDTO.role());
 
         return userEntity;
     }
@@ -46,6 +48,7 @@ public class UserMapper {
         userEntity.setPassword(userDTO.password());
         userEntity.setFullName(userDTO.fullName());
         userEntity.setEmail(userDTO.email());
+        userEntity.setRole(userDTO.role());
 
         return userEntity;
     }

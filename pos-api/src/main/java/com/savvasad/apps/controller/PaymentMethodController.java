@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/payment-methods")
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class PaymentMethodController {
     private final PaymentMethodService paymentMethodService;
     public PaymentMethodController(PaymentMethodService paymentMethodService) {
         this.paymentMethodService = paymentMethodService;
     }
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull PaymentMethodDTO> createPaymentMethod(@Valid @RequestBody PaymentMethodDTO paymentMethodDTO) {
         return ResponseEntity.ok(paymentMethodService.save(paymentMethodDTO));
     }
@@ -30,10 +31,12 @@ public class PaymentMethodController {
         return ResponseEntity.ok(paymentMethodService.findAll());
     }
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull PaymentMethodDTO> updatePaymentMethod(@PathVariable Long id, @Valid @RequestBody PaymentMethodDTO paymentMethodDTO) {
         return ResponseEntity.ok(paymentMethodService.update(id, paymentMethodDTO));
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull Void> deletePaymentMethod(@PathVariable Long id) {
         paymentMethodService.deleteById(id);
         return ResponseEntity.noContent().build();

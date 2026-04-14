@@ -1,8 +1,9 @@
-insert into users (username, password, full_name, email)
+insert into users (username, password, full_name, email, role)
 values ('admin',
         '$2a$12$n1gQJPqHOV7MR.H2M2rFHeNaijkP7ui7vx5iMhd3wlgRTgPg/rh1O',
         'Admin User',
         'admin@k2-test.com',
+        'ADMIN'
        );
 
 insert into payment_methods (name, description)
@@ -52,7 +53,7 @@ values (/* id: 1 */ 'Whey Protein', ''),
     (/* id: 21 */ 'D3', ''),
     (/* id: 22 */ 'Gels', ''),
     (/* id: 23 */ 'Carbohydrates', ''),
-    (/* id: 24 */ 'Protein Bar', ''),
+    (/* id: 24 */ 'Protein Bar', '');
 
 
 insert into products (name, description, retail_price, wholesale_price, product_type_id, stock_quantity)

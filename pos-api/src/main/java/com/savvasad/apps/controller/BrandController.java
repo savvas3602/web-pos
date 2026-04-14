@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/brands")
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class BrandController {
 
     private final BrandService brandService;
@@ -56,6 +56,7 @@ public class BrandController {
      * @return HTTP 200 OK with the updated BrandDTO
      */
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull BrandDTO> update(@PathVariable Long id, @Valid @RequestBody BrandDTO brandDTO) {
         return ResponseEntity.ok(brandService.update(id, brandDTO));
     }
@@ -66,6 +67,7 @@ public class BrandController {
      * @return HTTP 204 No Content
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull Void> delete(@PathVariable Long id) {
         brandService.deleteById(id);
         return ResponseEntity.noContent().build();
@@ -77,6 +79,7 @@ public class BrandController {
      * @return HTTP 201 Created with the created BrandDTO in the body and Location header
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull BrandDTO> save(@Valid @RequestBody BrandDTO brandDTO) {
         BrandDTO savedBrand = brandService.save(brandDTO);
         URI location = ServletUriComponentsBuilder

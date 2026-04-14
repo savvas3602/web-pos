@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product-types")
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class ProductTypeController {
     private final ProductTypeService productTypeService;
 
@@ -41,6 +41,7 @@ public class ProductTypeController {
      * @return HTTP 201 Created with the created ProductTypeDTO in the body and Location header
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull ProductTypeDTO> create(@Valid @RequestBody ProductTypeDTO dto) {
         ProductTypeDTO created = productTypeService.save(dto);
         URI location = ServletUriComponentsBuilder
@@ -80,6 +81,7 @@ public class ProductTypeController {
      * @return HTTP 200 OK with the updated ProductTypeDTO
      */
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull ProductTypeDTO> update(@PathVariable Long id, @Valid @RequestBody ProductTypeDTO dto) {
         return ResponseEntity.ok(productTypeService.update(id, dto));
     }
@@ -90,6 +92,7 @@ public class ProductTypeController {
      * @return HTTP 204 No Content (body is empty)
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<@NonNull Void> delete(@PathVariable Long id) {
         productTypeService.deleteById(id);
         return ResponseEntity.noContent().build();

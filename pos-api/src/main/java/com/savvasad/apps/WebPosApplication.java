@@ -1,6 +1,7 @@
 package com.savvasad.apps;
 
 import com.savvasad.apps.dto.UserSaveDto;
+import com.savvasad.apps.enums.UserRole;
 import com.savvasad.apps.service.UsersService;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,7 @@ public class WebPosApplication {
 @Profile("dev")
 class DevDataInitializer implements CommandLineRunner {
     private final DataSource dataSource;
+
     @Value("classpath:scripts/create-test-data.sql")
     private Resource testDataSql;
 
@@ -34,7 +36,8 @@ class DevDataInitializer implements CommandLineRunner {
                 "admin",
                 "Administrator",
                 "admin@email.com",
-                "admin"
+                "admin",
+                UserRole.USER
         ));
     }
 

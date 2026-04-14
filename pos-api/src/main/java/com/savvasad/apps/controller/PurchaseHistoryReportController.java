@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reports/purchase-history")
-@PreAuthorize("hasRole('ROLE_USER')")
+@PreAuthorize("hasRole('ADMIN')")
 public class PurchaseHistoryReportController {
 
     private final PurchaseHistoryReportService purchaseHistoryReportService;

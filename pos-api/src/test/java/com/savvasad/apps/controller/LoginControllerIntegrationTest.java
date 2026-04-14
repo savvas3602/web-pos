@@ -3,6 +3,7 @@ package com.savvasad.apps.controller;
 import com.savvasad.apps.dto.LoginRequestDto;
 import com.savvasad.apps.dto.LoginResponseDto;
 import com.savvasad.apps.dto.UserSaveDto;
+import com.savvasad.apps.enums.UserRole;
 import com.savvasad.apps.service.UsersService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,8 @@ class LoginControllerIntegrationTest {
                 "test-user",
                 "Test User",
                 "test-user@email.com",
-                "password123"
+                "password123",
+                UserRole.USER
 
         );
         usersService.save(userSaveDto);

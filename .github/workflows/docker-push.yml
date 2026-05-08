@@ -7,7 +7,7 @@ name: Docker — Build & Push
 # ──────────────────────────────────────────────────────────────────────────────
 on:
   push:
-    branches: [ cicd ]
+    branches: [ cicid ]
     paths:
       - "pos-api/**"
       - "pos-web/**"

@@ -31,16 +31,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Preflight — verify credentials are present
-        shell: bash
-        run: |
-          set -euo pipefail
-          [ -n "${DOCKER_USERNAME:-}" ] || { echo "::error::DOCKER_USERNAME variable is empty"; exit 1; }
-          [ -n "${DOCKER_TOKEN:-}" ]    || { echo "::error::DOCKER_TOKEN secret is empty";      exit 1; }
-          echo "username=${DOCKER_USERNAME}"
-          echo "token_length=${#DOCKER_TOKEN}"
-
-
       - name: Get Commit SHA
         id: commit
         run: echo "sha=${GITHUB_SHA:0:8}" >> $GITHUB_OUTPUT

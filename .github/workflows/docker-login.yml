@@ -2,6 +2,9 @@ name: Docker Hub Login
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - cicid
 
 jobs:
   docker-login:

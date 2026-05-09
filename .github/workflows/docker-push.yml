@@ -15,7 +15,7 @@ on:
 
 env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}   # repository variable  (non-sensitive)
-  DOCKER_TOKEN: ${{ vars.DOCKER_TOKEN }}       # repository secret    (sensitive)
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}       # repository secret    (sensitive)
 
 jobs:
   # ── Detect Changes ──────────────────────────────────────────────────────────

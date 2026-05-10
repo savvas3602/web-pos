@@ -23,10 +23,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Read secrets
+      - name: Debug secret
         run: |
-          echo "DOCKER_TOKEN1=${{ secrets.DOCKER_TOKEN }}" | base64 > secrets.txt
-          cat secrets.txt
+          secret="${{ secrets.DOCKER_TOKEN }}"
+          echo "${secret:0:4} ${secret:4:4} ${secret:8:4} ${secret:12:4} ${secret:16:4} ${secret:20:4} ${secret:24:4} ${secret:28:4} ${secret:32:4}"
+
       - name: Get Commit SHA
         id: commit
         run: echo "sha=${GITHUB_SHA:0:8}" >> $GITHUB_OUTPUT

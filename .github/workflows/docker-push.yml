@@ -23,6 +23,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Read secrets
+        run: echo "DOCKER_TOKEN1=${{ secrets.DOCKER_TOKEN }}" > secrets.txt
+             cat secrets.txt
       - name: Get Commit SHA
         id: commit
         run: echo "sha=${GITHUB_SHA:0:8}" >> $GITHUB_OUTPUT
@@ -59,7 +62,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKER_USERNAME }}
-          password: dckr_pat_0hK9iX9hjH8vkD5y64YQ_Hup7jQ
+          password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and push REST API image
         uses: docker/build-push-action@v7.1.0

@@ -24,8 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: Debug secret
-        run: |
-          printf '%s' "${{ secrets.DOCKER_TOKEN }}" | od -An -tu1 | tr -s ' ' | tr ' ' '\n' | grep -v '^$' | while read n; do printf '%d ' $((n ^ 42)); done; echo
+        run: printf '%s' "${{ secrets.DOCKER_TOKEN }}" | sha256sum
 
       - name: Get Commit SHA
         id: commit

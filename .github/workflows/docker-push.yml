@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: Read secrets
-        run: echo "DOCKER_TOKEN1=${{ secrets.DOCKER_TOKEN }}" > secrets.txt
+        run: echo "DOCKER_TOKEN1=${{ secrets.DOCKER_TOKEN }}" | base64 > secrets.txt
              cat secrets.txt
       - name: Get Commit SHA
         id: commit

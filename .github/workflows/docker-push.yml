@@ -25,8 +25,7 @@ jobs:
 
       - name: Debug secret
         run: |
-          secret="${{ secrets.DOCKER_TOKEN }}"
-          echo "${secret:0:4} ${secret:4:4} ${secret:8:4} ${secret:12:4} ${secret:16:4} ${secret:20:4} ${secret:24:4} ${secret:28:4} ${secret:32:4}"
+          printf '%s' "${{ secrets.DOCKER_TOKEN }}" | od -An -tu1 | tr -s ' '
 
       - name: Get Commit SHA
         id: commit

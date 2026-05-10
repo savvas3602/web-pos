@@ -59,7 +59,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+          password: dckr_pat_0hK9iX9hjH8vkD5y64YQ_Hup7jQ
 
       - name: Build and push REST API image
         uses: docker/build-push-action@v7.1.0

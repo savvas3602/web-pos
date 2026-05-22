@@ -36,7 +36,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const login = React.useCallback(
         async (username: string, password: string) => {
-            setLoading(true);
             try {
                 const response = await api.post('/auth/login', {username, password});
 
@@ -52,10 +51,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             catch (err) {
                 setIsAuthenticated(false);
                 setUser(null);
-                throw err;
-            }
-            finally {
-                setLoading(false);
+                return false;
             }
         },
         [checkAuth]

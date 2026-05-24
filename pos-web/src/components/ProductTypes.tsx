@@ -14,12 +14,12 @@ import {
 import {
     DataGrid,
     type GridColDef,
-    GridActionsCellItem,
-    GridToolbar
+    GridActionsCellItem
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationSnackbar from './NotificationSnackbar';
+import CustomToolbar from './CustomToolBar';
 import type { ProductType } from '../types/ProductType';
 import { productTypeService } from '../services/productTypeService';
 
@@ -206,11 +206,17 @@ const ProductTypes: React.FC = () => {
                         columns={columns}
                         autoHeight
                         initialState={{
-                            pagination: { paginationModel: { pageSize: 5 } }
+                            pagination: { paginationModel: { pageSize: 5 } },
+                            columns: {
+                                columnVisibilityModel: {
+                                    id: false
+                                }
+                            }
                         }}
                         pageSizeOptions={[5, 10, 20]}
                         loading={loading}
-                        slots={{ toolbar: GridToolbar }}
+                        showToolbar
+                        slots={{ toolbar: CustomToolbar }}
                         sx={{
                             '& .MuiDataGrid-row:nth-of-type(even)': {
                                 backgroundColor: 'action.hover'

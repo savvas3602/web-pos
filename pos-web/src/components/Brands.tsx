@@ -15,12 +15,12 @@ import {
     DataGrid,
     type GridColDef,
     type GridRowParams,
-    GridActionsCellItem,
-    GridToolbar
+    GridActionsCellItem
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationSnackbar from './NotificationSnackbar';
+import CustomToolbar from './CustomToolBar';
 import type { Brand } from '../types/Brand';
 import { brandService } from '../services/brandService';
 
@@ -223,13 +223,18 @@ const Brands: React.FC = () => {
                     <DataGrid
                         rows={brands}
                         columns={columns}
-                        autoHeight
                         initialState={{
-                            pagination: { paginationModel: { pageSize: 5 } }
+                            pagination: { paginationModel: { pageSize: 10 } },
+                            columns: {
+                                columnVisibilityModel: {
+                                    id: false
+                                }
+                            }
                         }}
                         pageSizeOptions={[5, 10, 20]}
                         loading={loading}
-                        slots={{ toolbar: GridToolbar }}
+                        showToolbar
+                        slots={{ toolbar: CustomToolbar }}
                         sx={{
                             '& .MuiDataGrid-row:nth-of-type(even)': {
                                 backgroundColor: 'action.hover'

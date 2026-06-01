@@ -1,5 +1,5 @@
-import api from './api';
-import type { Brand } from '../types/Brand';
+import api from './api.ts';
+import type { Brand } from '../types/Brand.ts';
 
 export const brandService = {
     getAll: async (): Promise<Brand[]> => {

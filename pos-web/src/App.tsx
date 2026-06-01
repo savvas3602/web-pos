@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar.tsx";
 import PurchaseHistory from './components/PurchaseHistory';
 import { useAuth } from './app/useAuth';
 import PublicRoute from './components/PublicRoute';
-import Brands from './components/Brands';
+import Brands from './components/brands/Brands';
 import Products from "./components/Products.tsx";
 import ProductTypes from "./components/ProductTypes.tsx";
 import Breadcrumbs from './components/Breadcrumbs';

@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
-    TextField,
     Typography,
     Dialog,
     DialogTitle,
     DialogContent,
     DialogActions,
-    Stack,
     Paper
 } from '@mui/material';
 import {
@@ -19,43 +17,41 @@ import {
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import NotificationSnackbar from './NotificationSnackbar';
-import CustomToolbar from './CustomToolBar';
-import type { Brand } from '../types/Brand';
-import { brandService } from '../services/brandService';
+import NotificationSnackbar from '../NotificationSnackbar';
+import CustomToolbar from '../CustomToolBar';
+import BrandFormDialog from './BrandFormDialog';
+import { useBrandManager } from '../../hooks/useBrandManager';
+import type { Brand } from '../../types/Brand';
 
+/**
+ * Container for the Brands configuration page
+ * @constructor
+ */
 const Brands: React.FC = () => {
-    const [brands, setBrands] = useState<Brand[]>([]);
+    // Hook for brand CRUD operations
+    const { brands, loading, fetchBrands, createBrand, updateBrand, deleteBrand } = useBrandManager();
+
+    // UI-specific state (form and dialog management)
     const [brandName, setBrandName] = useState('');
     const [brandDescription, setBrandDescription] = useState('');
     const [editingId, setEditingId] = useState<number | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [formDialogOpen, setFormDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [brandToDelete, setBrandToDelete] = useState<Brand | null>(null);
     const [notification, setNotification] = useState<{
         open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
     }>({ open: false, message: '', severity: 'success' });
 
-    const formRef = useRef<HTMLDivElement>(null);
-
     useEffect(() => {
         (async () => {
-            await fetchBrands();
+            try {
+                await fetchBrands();
+            } catch (err: any) {
+                setNotification({ open: true, message: "Failed to fetch brands. " + err.message, severity: "error" });
+                console.error(err);
+            }
         })();
     }, []);
-
-    const fetchBrands = async () => {
-        setLoading(true);
-        try {
-            const data = await brandService.getAll();
-            setBrands(data);
-        } catch (err: any) {
-            setNotification({ open: true, message: "Failed to fetch brands. " + err.message, severity: "error" });
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -71,24 +67,23 @@ const Brands: React.FC = () => {
             }
         }
 
-        setLoading(true);
         try {
             if (editingId !== null) {
-                await brandService.update(editingId, { name: brandName, description: brandDescription });
+                await updateBrand(editingId, { name: brandName, description: brandDescription });
                 setNotification({ open: true, message: "Updated successfully", severity: "success" });
             } else {
-                await brandService.create({ name: brandName, description: brandDescription });
+                await createBrand({ name: brandName, description: brandDescription });
                 setNotification({ open: true, message: "Submitted successfully", severity: "success" });
             }
 
             setBrandName("");
             setBrandDescription("");
             setEditingId(null);
-            await fetchBrands();
         } catch (err: any) {
             setNotification({ open: true, message: "Submission failed. " + err.message, severity: "error" });
             console.error(err);
-            setLoading(false);
+        } finally {
+            setFormDialogOpen(false);
         }
     };
 
@@ -96,15 +91,27 @@ const Brands: React.FC = () => {
         setBrandName(brand.name);
         setBrandDescription(brand.description || '');
         setEditingId(brand.id);
+        setFormDialogOpen(true);
         setNotification({ open: true, message: 'Entered update mode', severity: 'info' });
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-    const handleCancelEdit = () => {
+    const handleOpenCreate = () => {
+        setBrandName('');
+        setBrandDescription('');
+        setEditingId(null);
+        setFormDialogOpen(true);
+    };
+
+    const BrandsToolbar: React.FC = () => <CustomToolbar onAddClick={handleOpenCreate} />;
+
+    const handleCloseFormDialog = () => {
+        if (editingId !== null) {
+            setNotification({ open: true, message: 'Exited update mode - no changes were saved', severity: 'info' });
+        }
         setBrandName("");
         setBrandDescription("");
         setEditingId(null);
-        setNotification({ open: true, message: 'Exited update mode – no changes were saved', severity: 'info' });
+        setFormDialogOpen(false);
     };
 
     const handleDeleteClick = (brand: Brand) => {
@@ -115,26 +122,24 @@ const Brands: React.FC = () => {
     const handleDeleteConfirm = async () => {
         if (!brandToDelete) return;
 
-        setLoading(true);
         try {
-            await brandService.delete(brandToDelete.id);
+            await deleteBrand(brandToDelete.id);
             setNotification({
                 open: true, message: brandToDelete.name + " deleted successfully.", severity: "success"
             });
-            await fetchBrands();
-        } catch (err: any) {
-            setNotification({ open: true, message: "Failed to delete. " + err.message, severity: "error" });
-            console.error(err);
-        } finally {
-            setLoading(false);
-            setDeleteDialogOpen(false);
 
             // Only clear the form if we deleted the item being edited
             if (brandToDelete.id === editingId) {
                 setEditingId(null);
                 setBrandName('');
                 setBrandDescription('');
+                setFormDialogOpen(false);
             }
+        } catch (err: any) {
+            setNotification({ open: true, message: "Failed to delete. " + err.message, severity: "error" });
+            console.error(err);
+        } finally {
+            setDeleteDialogOpen(false);
             setBrandToDelete(null);
         }
     };
@@ -174,49 +179,11 @@ const Brands: React.FC = () => {
                 severity={notification.severity}
                 onClose={() => setNotification({ ...notification, open: false })}
             />
-            <Paper ref={formRef} sx={{ p: { xs: 2, sm: 3 } }}>
-                <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
-                    Manage Brands
-                </Typography>
-
-                <Box sx={{ mb: 3 }}>
-                    <form onSubmit={handleSubmit}>
-                        <Stack direction={{ xs: "column", sm: "row" }} spacing={2.5}>
-                            <TextField
-                                label="Brand Name"
-                                value={brandName}
-                                onChange={e => setBrandName(e.target.value)}
-                                required
-                                fullWidth
-                            />
-                            <TextField
-                                label="Brand Description"
-                                value={brandDescription}
-                                onChange={e => setBrandDescription(e.target.value)}
-                                fullWidth
-                            />
-
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 } }}
-                            >
-                                {editingId !== null ? "Update" : "Add"}
-                            </Button>
-                            {editingId !== null && (
-                                <Button
-                                    type="button"
-                                    variant="outlined"
-                                    color="inherit"
-                                    onClick={handleCancelEdit}
-                                    sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 } }}
-                                >
-                                    Cancel
-                                </Button>
-                            )}
-                        </Stack>
-                    </form>
+            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+                <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                        Manage Brands
+                    </Typography>
                 </Box>
 
                 <Box sx={{ width: '100%' }}>
@@ -234,7 +201,7 @@ const Brands: React.FC = () => {
                         pageSizeOptions={[5, 10, 20]}
                         loading={loading}
                         showToolbar
-                        slots={{ toolbar: CustomToolbar }}
+                        slots={{ toolbar: BrandsToolbar }}
                         sx={{
                             '& .MuiDataGrid-row:nth-of-type(even)': {
                                 backgroundColor: 'action.hover'
@@ -243,6 +210,18 @@ const Brands: React.FC = () => {
                     />
                 </Box>
             </Paper>
+
+            <BrandFormDialog
+                open={formDialogOpen}
+                name={brandName}
+                description={brandDescription}
+                isEditing={editingId !== null}
+                loading={loading}
+                onClose={handleCloseFormDialog}
+                onNameChange={setBrandName}
+                onDescriptionChange={setBrandDescription}
+                onSubmit={handleSubmit}
+            />
 
             <Dialog open={deleteDialogOpen} onClose={handleDeleteCancel}>
                 <DialogTitle>Confirm Delete</DialogTitle>

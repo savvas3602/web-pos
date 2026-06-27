@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
-    TextField,
     Typography,
     Dialog,
     DialogTitle,
     DialogContent,
     DialogActions,
-    Stack,
     Paper
 } from '@mui/material';
 import {
@@ -18,28 +16,26 @@ import {
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import NotificationSnackbar from './NotificationSnackbar';
 import CustomToolbar from './CustomToolBar';
+import ProductTypeFormModal from './ProductTypeFormModal';
 import type { ProductType } from '../types/ProductType';
 import { productTypeService } from '../services/productTypeService';
 
 const ProductTypes: React.FC = () => {
     const [productTypes, setProductTypes] = useState<ProductType[]>([]);
-    const [productTypeName, setProductTypeName] = useState('');
-    const [editingId, setEditingId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [productTypeToEdit, setProductTypeToEdit] = useState<ProductType | undefined>(undefined);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [productTypeToDelete, setProductTypeToDelete] = useState<ProductType | null>(null);
     const [notification, setNotification] = useState<{
-        open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
+        open: boolean; message: string; severity: 'success' | 'error' | 'info' | 'warning';
     }>({ open: false, message: '', severity: 'success' });
 
-    const formRef = useRef<HTMLDivElement>(null);
-
     useEffect(() => {
-        (async () => {
-            await fetchProductTypes();
-        })();
+        (async () => { await fetchProductTypes(); })();
     }, []);
 
     const fetchProductTypes = async () => {
@@ -48,55 +44,36 @@ const ProductTypes: React.FC = () => {
             const data = await productTypeService.getAll();
             setProductTypes(data);
         } catch (err: any) {
-            setNotification({ open: true, message: "Failed to fetch product types. " + err.message, severity: "error" });
+            setNotification({ open: true, message: 'Failed to fetch product types. ' + err.message, severity: 'error' });
             console.error(err);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (editingId) {
-            const originalProductType = productTypes.find(pt => pt.id === editingId);
-            if (originalProductType && originalProductType.name === productTypeName) {
-                setNotification({ open: true, message: "No changes to save.", severity: "info" });
-                return;
-            }
-        }
-
-        setLoading(true);
-        try {
-            if (editingId) {
-                await productTypeService.update(editingId, { name: productTypeName });
-                setNotification({ open: true, message: "Updated successfully", severity: "success" });
-            } else {
-                await productTypeService.create({ name: productTypeName });
-                setNotification({ open: true, message: "Submitted successfully", severity: "success" });
-            }
-
-            setProductTypeName("");
-            setEditingId(null);
-            await fetchProductTypes();
-        } catch (err: any) {
-            setNotification({ open: true, message: "Submission failed. " + err.message, severity: "error" });
-            console.error(err);
-            setLoading(false);
-        }
+    const handleOpenAdd = () => {
+        setProductTypeToEdit(undefined);
+        setModalOpen(true);
     };
 
-    const handleEdit = (productType: ProductType) => {
-        setProductTypeName(productType.name);
-        setEditingId(productType.id);
-        setNotification({ open: true, message: 'Entered update mode', severity: 'info' });
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const handleOpenEdit = (productType: ProductType) => {
+        setProductTypeToEdit(productType);
+        setModalOpen(true);
     };
 
-    const handleCancelEdit = () => {
-        setProductTypeName("");
-        setEditingId(null);
-        setNotification({ open: true, message: 'Exited update mode – no changes were saved', severity: 'info' });
+    const handleModalClose = () => {
+        setModalOpen(false);
+        setProductTypeToEdit(undefined);
+    };
+
+    const handleModalSuccess = async (productType: ProductType) => {
+        const message = productTypeToEdit
+            ? `${productType.name} updated successfully.`
+            : `${productType.name} added successfully.`;
+        setModalOpen(false);
+        setProductTypeToEdit(undefined);
+        setNotification({ open: true, message, severity: 'success' });
+        await fetchProductTypes();
     };
 
     const handleDeleteClick = (productType: ProductType) => {
@@ -110,21 +87,14 @@ const ProductTypes: React.FC = () => {
         setLoading(true);
         try {
             await productTypeService.delete(productTypeToDelete.id);
-            setNotification({
-                open: true, message: productTypeToDelete.name + " deleted successfully.", severity: "success"
-            });
+            setNotification({ open: true, message: productTypeToDelete.name + ' deleted successfully.', severity: 'success' });
             await fetchProductTypes();
         } catch (err: any) {
-            setNotification({ open: true, message: "Failed to delete. " + err.message, severity: "error" });
+            setNotification({ open: true, message: 'Failed to delete. ' + err.message, severity: 'error' });
             console.error(err);
         } finally {
             setLoading(false);
             setDeleteDialogOpen(false);
-
-            if (productTypeToDelete.id === editingId) {
-                setEditingId(null);
-                setProductTypeName('');
-            }
             setProductTypeToDelete(null);
         }
     };
@@ -145,7 +115,7 @@ const ProductTypes: React.FC = () => {
             flex: 0.5,
             getActions: (params) => [
                 <GridActionsCellItem key="edit" icon={<EditIcon />} label="Edit"
-                                     onClick={() => handleEdit(params.row)}
+                                     onClick={() => handleOpenEdit(params.row)}
                 />,
                 <GridActionsCellItem key="delete" icon={<DeleteIcon sx={{ color: 'red' }} />} label="Delete"
                                      onClick={() => handleDeleteClick(params.row)}
@@ -162,56 +132,31 @@ const ProductTypes: React.FC = () => {
                 severity={notification.severity}
                 onClose={() => setNotification({ ...notification, open: false })}
             />
-            <Paper ref={formRef} sx={{ p: { xs: 2, sm: 3 } }}>
-                <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
-                    Manage Product Types
-                </Typography>
 
-                <Box sx={{ mb: 2 }}>
-                    <form onSubmit={handleSubmit}>
-                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                            <TextField
-                                label="Product Type Name"
-                                value={productTypeName}
-                                onChange={e => setProductTypeName(e.target.value)}
-                                required
-                                fullWidth
-                            />
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 } }}
-                                >
-                                    {editingId ? "Update" : "Add"}
-                                </Button>
-                                {editingId && (
-                                    <Button
-                                        type="button"
-                                        variant="outlined"
-                                        color="inherit"
-                                        onClick={handleCancelEdit}
-                                        sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 } }}
-                                    >
-                                        Cancel
-                                    </Button>
-                                )}
-                            </Stack>
-                    </form>
+            <ProductTypeFormModal
+                open={modalOpen}
+                onClose={handleModalClose}
+                productType={productTypeToEdit}
+                onSuccess={handleModalSuccess}
+            />
+
+            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                        Manage Product Types
+                    </Typography>
+                    <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenAdd}>
+                        Add Product Type
+                    </Button>
                 </Box>
 
                 <Box sx={{ width: '100%' }}>
                     <DataGrid
                         rows={productTypes}
                         columns={columns}
-                        autoHeight
                         initialState={{
                             pagination: { paginationModel: { pageSize: 5 } },
-                            columns: {
-                                columnVisibilityModel: {
-                                    id: false
-                                }
-                            }
+                            columns: { columnVisibilityModel: { id: false } }
                         }}
                         pageSizeOptions={[5, 10, 20]}
                         loading={loading}

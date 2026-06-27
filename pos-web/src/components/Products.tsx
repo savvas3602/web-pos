@@ -1,16 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
     Box,
     Button,
-    TextField,
     Typography,
     Dialog,
     DialogTitle,
     DialogContent,
     DialogActions,
-    Stack,
     Paper,
-    MenuItem,
     Tooltip
 } from '@mui/material';
 import {
@@ -21,8 +18,10 @@ import {
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import NotificationSnackbar from './NotificationSnackbar';
 import CustomToolbar from './CustomToolBar';
+import ProductFormModal from './ProductFormModal';
 import type { Product } from '../types/Product';
 import { productService } from '../services/productService';
 import type { ProductType } from '../types/ProductType';
@@ -30,40 +29,18 @@ import { productTypeService } from '../services/productTypeService';
 import type { Brand } from '../types/Brand';
 import { brandService } from '../services/brandService';
 
-type ProductFormState = {
-    name: string;
-    description: string;
-    retailPrice: string;
-    wholesalePrice: string;
-    stockQuantity: string;
-    productTypeId: number | '';
-    brandId: number | '';
-};
-
-const initialFormState: ProductFormState = {
-    name: '',
-    description: '',
-    retailPrice: '',
-    wholesalePrice: '',
-    stockQuantity: '',
-    productTypeId: '',
-    brandId: ''
-};
-
 const Products: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [productTypes, setProductTypes] = useState<ProductType[]>([]);
     const [brands, setBrands] = useState<Brand[]>([]);
-    const [form, setForm] = useState<ProductFormState>(initialFormState);
-    const [editingId, setEditingId] = useState<number | null>(null);
     const [loading, setLoading] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [productToEdit, setProductToEdit] = useState<Product | undefined>(undefined);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [productToDelete, setProductToDelete] = useState<Product | null>(null);
     const [notification, setNotification] = useState<{
-        open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
+        open: boolean; message: string; severity: 'success' | 'error' | 'info' | 'warning';
     }>({ open: false, message: '', severity: 'success' });
-
-    const formRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         void loadInitialData();
@@ -80,11 +57,7 @@ const Products: React.FC = () => {
             setBrands(brandData);
             await fetchProducts(productTypeData, brandData);
         } catch (err: any) {
-            setNotification({
-                open: true,
-                message: 'Failed to load products. ' + err.message,
-                severity: 'error'
-            });
+            setNotification({ open: true, message: 'Failed to load products. ' + err.message, severity: 'error' });
         } finally {
             setLoading(false);
         }
@@ -92,9 +65,8 @@ const Products: React.FC = () => {
 
     const fetchProducts = async (types: ProductType[] = productTypes, brandList: Brand[] = brands) => {
         const data = await productService.getAll();
-
-        const mappedProducts: Product[] = data.map((item) => {
-            const productType = types.find((type) => type.id === item.productTypeId);
+        const mapped: Product[] = data.map((item) => {
+            const productType = types.find((t) => t.id === item.productTypeId);
             const brand = brandList.find((b) => b.id === item.brandId);
             return {
                 ...item,
@@ -104,99 +76,32 @@ const Products: React.FC = () => {
                 brandId: item.brandId ?? brand?.id
             };
         });
-
-        setProducts(mappedProducts);
+        setProducts(mapped);
     };
 
-    const setFormValue = <K extends keyof ProductFormState>(key: K, value: ProductFormState[K]) => {
-        setForm((prev) => ({ ...prev, [key]: value }));
+    const handleOpenAdd = () => {
+        setProductToEdit(undefined);
+        setModalOpen(true);
     };
 
-    const resetForm = () => {
-        setForm(initialFormState);
-        setEditingId(null);
+    const handleOpenEdit = (product: Product) => {
+        setProductToEdit(product);
+        setModalOpen(true);
     };
 
-    const handleCancelEdit = () => {
-        resetForm();
-        setNotification({ open: true, message: 'Exited update mode – no changes were saved', severity: 'info' });
+    const handleModalClose = () => {
+        setModalOpen(false);
+        setProductToEdit(undefined);
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (editingId) {
-            const originalProduct = products.find((product) => product.id === editingId);
-            const originalProductTypeId = originalProduct?.productType?.id ?? originalProduct?.productTypeId ?? '';
-            const originalBrandId = originalProduct?.brand?.id ?? originalProduct?.brandId ?? '';
-
-            if (
-                originalProduct &&
-                originalProduct.name === form.name &&
-                (originalProduct.description ?? '') === form.description &&
-                originalProduct.retailPrice === Number(form.retailPrice) &&
-                originalProduct.wholesalePrice === Number(form.wholesalePrice) &&
-                originalProduct.stockQuantity === Number(form.stockQuantity) &&
-                originalProductTypeId === form.productTypeId &&
-                originalBrandId === form.brandId
-            ) {
-                setNotification({ open: true, message: 'No changes to save.', severity: 'info' });
-                return;
-            }
-        }
-
-        if (!form.productTypeId) {
-            setNotification({ open: true, message: 'Please select a valid product type.', severity: 'error' });
-            return;
-        }
-
-        if (!form.brandId) {
-            setNotification({ open: true, message: 'Please select a valid brand.', severity: 'error' });
-            return;
-        }
-
-        setLoading(true);
-        try {
-            const productData = {
-                name: form.name,
-                description: form.description,
-                retailPrice: Number(form.retailPrice),
-                wholesalePrice: Number(form.wholesalePrice),
-                stockQuantity: Number(form.stockQuantity),
-                productTypeId: form.productTypeId,
-                brandId: form.brandId
-            };
-
-            if (editingId) {
-                await productService.update(editingId, productData);
-                setNotification({ open: true, message: 'Updated successfully', severity: 'success' });
-            } else {
-                await productService.create(productData);
-                setNotification({ open: true, message: 'Submitted successfully', severity: 'success' });
-            }
-
-            resetForm();
-            await fetchProducts();
-        } catch (err: any) {
-            setNotification({ open: true, message: 'Submission failed. ' + err.message, severity: 'error' });
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleEdit = (product: Product) => {
-        setForm({
-            name: product.name,
-            description: product.description ?? '',
-            retailPrice: String(product.retailPrice),
-            wholesalePrice: String(product.wholesalePrice),
-            stockQuantity: String(product.stockQuantity),
-            productTypeId: product.productType?.id ?? product.productTypeId ?? '',
-            brandId: product.brand?.id ?? product.brandId ?? ''
-        });
-        setEditingId(product.id);
-        setNotification({ open: true, message: 'Entered update mode', severity: 'info' });
-        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const handleModalSuccess = async (product: Product) => {
+        const message = productToEdit
+            ? `${product.name} updated successfully.`
+            : `${product.name} added successfully.`;
+        setModalOpen(false);
+        setProductToEdit(undefined);
+        setNotification({ open: true, message, severity: 'success' });
+        await fetchProducts();
     };
 
     const handleDeleteClick = (product: Product) => {
@@ -210,20 +115,13 @@ const Products: React.FC = () => {
         setLoading(true);
         try {
             await productService.delete(productToDelete.id);
-            setNotification({
-                open: true,
-                message: productToDelete.name + ' deleted successfully.',
-                severity: 'success'
-            });
+            setNotification({ open: true, message: productToDelete.name + ' deleted successfully.', severity: 'success' });
             await fetchProducts();
         } catch (err: any) {
             setNotification({ open: true, message: 'Failed to delete. ' + err.message, severity: 'error' });
         } finally {
             setLoading(false);
             setDeleteDialogOpen(false);
-            if (productToDelete.id === editingId) {
-                resetForm();
-            }
             setProductToDelete(null);
         }
     };
@@ -248,16 +146,7 @@ const Products: React.FC = () => {
                     placement="top"
                     enterTouchDelay={50}
                     leaveTouchDelay={3000}
-                    slotProps={{
-                        tooltip: {
-                            sx: {
-                                maxWidth: 420,
-                                fontSize: '0.875rem',
-                                lineHeight: 1.6,
-                                p: 1.5,
-                            }
-                        }
-                    }}
+                    slotProps={{ tooltip: { sx: { maxWidth: 420, fontSize: '0.875rem', lineHeight: 1.6, p: 1.5 } } }}
                 >
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {params.value}
@@ -293,7 +182,7 @@ const Products: React.FC = () => {
                     key="edit"
                     icon={<EditIcon />}
                     label="Edit"
-                    onClick={() => handleEdit(params.row)}
+                    onClick={() => handleOpenEdit(params.row)}
                 />,
                 <GridActionsCellItem
                     key="delete"
@@ -303,7 +192,7 @@ const Products: React.FC = () => {
                 />
             ]
         }
-    ], [editingId]);
+    ], []);
 
     return (
         <Box sx={{ p: { xs: 1.5, sm: 3 } }}>
@@ -313,130 +202,33 @@ const Products: React.FC = () => {
                 severity={notification.severity}
                 onClose={() => setNotification({ ...notification, open: false })}
             />
-            <Paper ref={formRef} sx={{ p: { xs: 2, sm: 3 } }}>
-                <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
-                    Manage Products
-                </Typography>
 
-                <Box sx={{ mb: 3 }}>
-                    <form onSubmit={handleSubmit}>
-                        <Stack spacing={2.5}>
-                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                                <TextField
-                                    label="Product Name"
-                                    value={form.name}
-                                    onChange={(e) => setFormValue('name', e.target.value)}
-                                    required
-                                    fullWidth
-                                />
-                                <TextField
-                                    select
-                                    label="Product Type"
-                                    value={form.productTypeId}
-                                    onChange={(e) => setFormValue('productTypeId', Number(e.target.value))}
-                                    required
-                                    fullWidth
-                                >
-                                    {productTypes.map((option) => (
-                                        <MenuItem key={option.id} value={option.id}>
-                                            {option.name}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Stack>
-                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems="stretch">
-                                <TextField
-                                    select
-                                    label="Brand"
-                                    value={form.brandId}
-                                    onChange={(e) => setFormValue('brandId', e.target.value === '' ? '' : Number(e.target.value))}
-                                    fullWidth
-                                    sx={{ flex: 1 }}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    {brands.map((option) => (
-                                        <MenuItem key={option.id} value={option.id}>
-                                            {option.name}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                                <TextField
-                                    label="Product Description"
-                                    value={form.description}
-                                    onChange={(e) => setFormValue('description', e.target.value)}
-                                    multiline
-                                    minRows={3}
-                                    maxRows={6}
-                                    sx={{ flex: 1 }}
-                                />
-                            </Stack>
+            <ProductFormModal
+                open={modalOpen}
+                onClose={handleModalClose}
+                product={productToEdit}
+                productTypes={productTypes}
+                brands={brands}
+                onSuccess={handleModalSuccess}
+            />
 
-                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                                <TextField
-                                    label="Retail Price"
-                                    value={form.retailPrice}
-                                    onChange={(e) => setFormValue('retailPrice', e.target.value)}
-                                    type="number"
-                                    required
-                                    fullWidth
-                                />
-                                <TextField
-                                    label="Wholesale Price"
-                                    value={form.wholesalePrice}
-                                    onChange={(e) => setFormValue('wholesalePrice', e.target.value)}
-                                    type="number"
-                                    required
-                                    fullWidth
-                                />
-                                <TextField
-                                    label="Stock Quantity"
-                                    value={form.stockQuantity}
-                                    onChange={(e) => setFormValue('stockQuantity', e.target.value)}
-                                    type="number"
-                                    required
-                                    fullWidth
-                                />
-                            </Stack>
-
-                            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 }}}
-                                >
-                                    {editingId ? 'Update' : 'Add'}
-                                </Button>
-                                {editingId && (
-                                    <Button
-                                        type="button"
-                                        variant="outlined"
-                                        color="inherit"
-                                        onClick={handleCancelEdit}
-                                        sx={{ width: { xs: '100%', sm: 'auto' }, minWidth: { sm: 140 }}}
-                                    >
-                                        Cancel
-                                    </Button>
-                                )}
-                            </Stack>
-                        </Stack>
-                    </form>
+            <Paper sx={{ p: { xs: 2, sm: 3 } }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                        Manage Products
+                    </Typography>
+                    <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenAdd}>
+                        Add Product
+                    </Button>
                 </Box>
 
                 <Box sx={{ width: '100%' }}>
                     <DataGrid
                         rows={products}
                         columns={columns}
-                        autoHeight
                         initialState={{
                             pagination: { paginationModel: { pageSize: 5 } },
-                            columns: {
-                                columnVisibilityModel: {
-                                    id: false
-                                }
-                            }
+                            columns: { columnVisibilityModel: { id: false } }
                         }}
                         pageSizeOptions={[5, 10, 20]}
                         loading={loading}

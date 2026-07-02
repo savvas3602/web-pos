@@ -9,13 +9,15 @@ import {
     MenuItem,
     Tooltip
 } from '@mui/material';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, type GridColDef } from '@mui/x-data-grid';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import TodayIcon from '@mui/icons-material/Today';
 import { purchaseHistoryReportService, type PurchaseHistoryReportSearch } from '../services/purchaseHistoryReportService';
 import { paymentMethodService } from '../services/paymentMethodService';
 import type { PurchaseHistoryReport } from '../types/PurchaseHistoryReport';
 import type { PaymentMethod } from '../types/PaymentMethod';
 import NotificationSnackbar from './NotificationSnackbar';
+import OrderDetailModal from './OrderDetailModal';
 
 const PurchaseHistory: React.FC = () => {
     const [reports, setReports] = useState<PurchaseHistoryReport[]>([]);
@@ -27,6 +29,7 @@ const PurchaseHistory: React.FC = () => {
     const [notification, setNotification] = useState<{
         open: boolean, message: string, severity: 'success' | 'error' | 'info' | 'warning'
     }>({ open: false, message: '', severity: 'success' });
+    const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
 
     useEffect(() => {
         const loadInitialData = async () => {
@@ -135,6 +138,20 @@ const PurchaseHistory: React.FC = () => {
     };
 
     const columns: GridColDef<PurchaseHistoryReport>[] = [
+        {
+            field: 'actions',
+            type: 'actions',
+            headerName: '',
+            width: 60,
+            getActions: (params) => [
+                <GridActionsCellItem
+                    key="view"
+                    icon={<VisibilityIcon />}
+                    label="View Details"
+                    onClick={() => setSelectedOrderId(params.row.id)}
+                />
+            ]
+        },
         { field: 'id', headerName: 'Order ID', width: 100 },
         {
             field: 'createdAt',
@@ -203,6 +220,10 @@ const PurchaseHistory: React.FC = () => {
 
     return (
         <Box sx={{ p: { xs: 1.5, sm: 3 } }}>
+            <OrderDetailModal
+                orderId={selectedOrderId}
+                onClose={() => setSelectedOrderId(null)}
+            />
             <NotificationSnackbar
                 open={notification.open}
                 message={notification.message}

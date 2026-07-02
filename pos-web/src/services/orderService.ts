@@ -1,4 +1,6 @@
 import api from './api';
+import type { OrderResponse } from '../types/OrderResponse';
+
 export interface Order {
     id: number;
     orderValue: number;
@@ -8,6 +10,7 @@ export interface Order {
     comments: string | null;
     createdAt: string;
 }
+
 export const orderService = {
     getAll: async (): Promise<Order[]> => {
         const response = await api.get<Order[]>('/orders');
@@ -22,8 +25,8 @@ export const orderService = {
         });
         return response.data;
     },
-    getById: async (id: number): Promise<Order> => {
-        const response = await api.get<Order>(`/orders/${id}`);
+    getById: async (id: number): Promise<OrderResponse> => {
+        const response = await api.get<OrderResponse>(`/orders/${id}`);
         return response.data;
     },
     delete: async (id: number): Promise<void> => {

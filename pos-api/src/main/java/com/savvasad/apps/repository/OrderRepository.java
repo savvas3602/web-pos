@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<@NonNull OrderEntity, @NonNull Long> {
 
+    // TODO: Evaluate N+1 issue in this code
     @Query("SELECT o FROM OrderEntity o WHERE o.createdAt BETWEEN :startDate AND :endDate ORDER BY o.createdAt DESC")
     List<OrderEntity> findByCreatedAtBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     @Query("SELECT o FROM OrderEntity o ORDER BY o.createdAt DESC")
     List<OrderEntity> findAllOrderByCreatedAtDesc();
 }
-

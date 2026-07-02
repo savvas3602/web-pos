@@ -1,6 +1,7 @@
 package com.savvasad.apps.controller;
 
 import com.savvasad.apps.dto.OrderDto;
+import com.savvasad.apps.dto.OrderResponseDto;
 import com.savvasad.apps.service.OrderService;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.NonNull;
@@ -27,14 +28,14 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<@NonNull OrderDto> getOrder(@PathVariable Long id) {
+    public ResponseEntity<@NonNull OrderResponseDto> getOrder(@PathVariable Long id) {
         return orderService.findById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<@NonNull List<OrderDto>> getAllOrders(
+    public ResponseEntity<@NonNull List<OrderResponseDto>> getAllOrders(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
     ) {

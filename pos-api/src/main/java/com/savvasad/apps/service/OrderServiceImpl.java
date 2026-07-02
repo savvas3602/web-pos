@@ -2,11 +2,13 @@ package com.savvasad.apps.service;
 
 import com.savvasad.apps.dto.OrderDto;
 import com.savvasad.apps.dto.OrderProductDto;
+import com.savvasad.apps.dto.OrderResponseDto;
 import com.savvasad.apps.entity.OrderEntity;
 import com.savvasad.apps.entity.OrderProductEntity;
 import com.savvasad.apps.entity.PaymentMethodEntity;
 import com.savvasad.apps.entity.ProductEntity;
 import com.savvasad.apps.helper.EntityHelper;
+import com.savvasad.apps.mapper.OrderMapper;
 import com.savvasad.apps.repository.OrderRepository;
 import com.savvasad.apps.repository.PaymentMethodRepository;
 import com.savvasad.apps.repository.ProductRepository;
@@ -27,16 +29,19 @@ public class OrderServiceImpl implements OrderService {
     private final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
     private final PaymentMethodRepository paymentMethodRepository;
+    private final OrderMapper orderMapper;
 
-    public  OrderServiceImpl(OrderRepository orderRepository,
-                             ProductRepository productRepository,
-                             OrderProductRepository orderProductRepository,
-                             PaymentMethodRepository paymentMethodRepository
+    public OrderServiceImpl(OrderRepository orderRepository,
+                            ProductRepository productRepository,
+                            OrderProductRepository orderProductRepository,
+                            PaymentMethodRepository paymentMethodRepository,
+                            OrderMapper orderMapper
     ) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.orderProductRepository = orderProductRepository;
         this.paymentMethodRepository = paymentMethodRepository;
+        this.orderMapper = orderMapper;
     }
 
     // TODO: Add price validation and calculation logic, e.g. check if orderValue matches the sum of product prices, or if totalOverridden is true, then orderValue can be any value
@@ -65,7 +70,6 @@ public class OrderServiceImpl implements OrderService {
                 );
             }
 
-            // Update product stock
             product.setStockQuantity(product.getStockQuantity() - opDto.quantity());
             productRepository.save(product);
 
@@ -85,22 +89,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<OrderDto> findById(Long id) {
+    @Transactional(readOnly = true)
+    public Optional<OrderResponseDto> findById(Long id) {
         return orderRepository.findById(id)
-                .map(this::mapToDto);
+                .map(orderMapper::toResponseDto);
     }
 
     @Override
-    public List<OrderDto> findAll() {
+    @Transactional(readOnly = true)
+    public List<OrderResponseDto> findAll() {
         return orderRepository.findAllOrderByCreatedAtDesc().stream()
-                .map(this::mapToDto)
+                .map(orderMapper::toResponseDto)
                 .toList();
     }
 
     @Override
-    public List<OrderDto> findByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+    @Transactional(readOnly = true)
+    public List<OrderResponseDto> findByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         return orderRepository.findByCreatedAtBetween(startDate, endDate).stream()
-                .map(this::mapToDto)
+                .map(orderMapper::toResponseDto)
                 .toList();
     }
 
@@ -110,25 +117,6 @@ public class OrderServiceImpl implements OrderService {
             EntityHelper.throwResourceNotFoundException("Order", id);
         }
         orderRepository.deleteById(id);
-    }
-
-    private OrderDto mapToDto(OrderEntity entity) {
-        List<OrderProductDto> products = entity.getOrderProducts().stream()
-                .map(op -> new OrderProductDto(
-                        op.getProduct().getId(),
-                        op.getQuantity()
-                ))
-                .toList();
-
-        return new OrderDto(
-                entity.getId(),
-                entity.getOrderValue(),
-                products,
-                entity.isTotalOverridden(),
-                entity.getPaymentMethod().getId(),
-                entity.getComments(),
-                entity.getCreatedAt()
-        );
     }
 
     private ProductEntity findProductByIdOrThrow(Long id) {

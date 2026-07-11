@@ -24,6 +24,8 @@ services:
         build:
             context: ../pos-api/
             dockerfile: ../web-pos-docker/rest-api/Dockerfile
+            additional_contexts:
+                dockerfiles: ../web-pos-docker/rest-api/
         env_file:
             - env/rest-api.env
             - env/postgres.env

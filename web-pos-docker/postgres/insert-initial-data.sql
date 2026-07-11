@@ -1,6 +1,6 @@
 insert into users(username, password, full_name, email)
 values ('admin',
-        '$2a$12$7uZT.zrcpkxxHFIGLiVBwu9YZygsplaMBqfHMFMWZA.ytONcdhEXe', // admin1234
+        '$2a$12$7uZT.zrcpkxxHFIGLiVBwu9YZygsplaMBqfHMFMWZA.ytONcdhEXe', /* admin1234 */
         'Admin User',
         ''
        );
